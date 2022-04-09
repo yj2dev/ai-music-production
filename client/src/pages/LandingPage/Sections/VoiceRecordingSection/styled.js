@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  height: 300px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,6 +19,7 @@ export const Container = styled.div`
   }
   & .content {
     font-size: 24px;
+
     color: #ffffff;
   }
 `;
@@ -25,7 +27,7 @@ export const RecordingButtonWrapper = styled.div`
   width: 72px;
   height: 72px;
   border-radius: 50%;
-  background-color: rgba(0, 0, 0, 50%);
+  background-color: rgba(0, 0, 0, 20%);
   transition: 0.2s;
   position: relative;
   margin: 24px 0;
@@ -35,9 +37,12 @@ export const RecordingButtonWrapper = styled.div`
     border-radius: 50px;
     width: 164px;
   }
+
   & .timer {
+    //font-family: "Fredoka One", cursive;
     //color: #ffffff;
-    color: #ff0033;
+    //color: #ff0033;
+    color: #e56d53;
     position: absolute;
     font-size: 28px;
     font-weight: 800;
@@ -71,5 +76,5 @@ export const OffIcon = styled.div`
   width: 22px;
   height: 22px;
   border-radius: 4px;
-  background-color: rgba(0, 0, 0, 50%);
+  background-color: rgba(0, 0, 0, 30%);
 `;

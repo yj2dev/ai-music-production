@@ -7,19 +7,23 @@ import {
   RecordingButton,
   OffIcon,
 } from "./styled";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { MdKeyboardVoice } from "react-icons/md";
+import { MMSSFormat } from "../../../../utils/Time";
+import useInterval from "../../../../hooks/useInterval";
 
 const VoiceRecordingSection = () => {
+  const REC_LIMIT_TIME = 5;
   const [onRecording, setOnRecording] = useState(false);
   const [audioData, setAudioData] = useState("");
   const [audioURL, setAudioURL] = useState("");
-
   const [stream, setStream] = useState("");
   const [source, setSource] = useState("");
   const [analyser, setAnalyser] = useState("");
   const [media, setMedia] = useState("");
+
+  const [timer, setTimer] = useState("00:00");
 
   async function extendMediaRecoder() {
     await register(await connect());
@@ -29,7 +33,6 @@ const VoiceRecordingSection = () => {
   }, []);
 
   const onClickOnRecording = async () => {
-    console.log("녹음 시작");
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     const analyser = audioCtx.createScriptProcessor(0, 1, 1);
     setAnalyser(analyser);
@@ -53,7 +56,9 @@ const VoiceRecordingSection = () => {
 
       analyser.onaudioprocess = (e) => {
         // 2분(120초)가 지나면 자동으로 녹음 중지
-        if (e.playbackTime > 120) {
+        setTimer(MMSSFormat(parseInt(e.playbackTime)));
+
+        if (e.playbackTime > REC_LIMIT_TIME) {
           stream.getAudioTracks().forEach((track) => {
             track.stop();
           });
@@ -73,7 +78,6 @@ const VoiceRecordingSection = () => {
   };
 
   const onClickOffRecording = () => {
-    console.log("녹음 종료");
     media.ondataavailable = (e) => {
       setAudioData(e.data);
       setOnRecording(false);
@@ -98,7 +102,7 @@ const VoiceRecordingSection = () => {
   const onClickAudioDownload = () => {
     const link = document.createElement("a");
     link.href = window.URL.createObjectURL(audioData);
-    link.download = `${+new Date()}`;
+    link.download = `user_${+new Date()}.wav`;
     link.click();
   };
 
@@ -122,12 +126,14 @@ const VoiceRecordingSection = () => {
 
   return (
     <Container className={onRecording && "active"}>
-      <div className="content">버튼을 클릭하여 녹음을 시작합니다</div>
+      {!onRecording && (
+        <div className="content">버튼을 클릭하여 녹음을 시작합니다</div>
+      )}
       <RecordingButtonWrapper
         className={onRecording && "active"}
         onClick={!onRecording ? onClickOnRecording : onClickOffRecording}
       >
-        {onRecording && <div className="timer">00:00</div>}
+        {onRecording && <div className="timer">{timer}</div>}
         <RecordingButton>
           {!onRecording ? (
             <>
@@ -140,10 +146,10 @@ const VoiceRecordingSection = () => {
           )}
         </RecordingButton>
       </RecordingButtonWrapper>
-      <button onClick={onSubmitAudioFile}>녹음 결과 확인</button>
-      <button onClick={onClickAudioDownload}>.wav 다운로드</button> <br />
-      <button onClick={onClickRequestServer}>오디오 전송</button> <br />
-      <audio controls src={audioURL} />
+      {/*<button onClick={onSubmitAudioFile}>녹음 결과 확인</button>*/}
+      {/*<button onClick={onClickAudioDownload}>.wav 다운로드</button> <br />*/}
+      {/*<button onClick={onClickRequestServer}>오디오 전송</button> <br />*/}
+      {/*<audio controls src={audioURL} />*/}
     </Container>
   );
 };
