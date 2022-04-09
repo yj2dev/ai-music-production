@@ -1,7 +1,11 @@
 // import { Container } from "styled.js";
 
 import { Container } from "./styled";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+
+// https://stackoverflow.com/questions/65191193/media-recorder-save-in-wav-format-across-browsers
+import { MediaRecorder, register } from "extendable-media-recorder";
+import { connect } from "extendable-media-recorder-wav-encoder";
 
 const VoiceRecordingSection = () => {
   const [onRecording, setOnRecording] = useState(false);
@@ -11,6 +15,14 @@ const VoiceRecordingSection = () => {
   const [source, setSource] = useState("");
   const [analyser, setAnalyser] = useState("");
   const [media, setMedia] = useState("");
+
+  async function extendMediaRecoder() {
+    await register(await connect());
+  }
+  useEffect(() => {
+    // ".wav" 확장자로 변환을 지원
+    extendMediaRecoder();
+  }, []);
 
   const onClickOnRecording = async () => {
     console.log("onClickOnRecording");
@@ -33,7 +45,10 @@ const VoiceRecordingSection = () => {
 
     // 마이크 사용 권한 확인
     navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
-      const mediaRecorder = new MediaRecorder(stream);
+      // const mediaRecorder = new MediaRecorder(stream);
+      const mediaRecorder = new MediaRecorder(stream, {
+        mimeType: "audio/wav",
+      });
       mediaRecorder.start();
       setStream(stream);
       setMedia(mediaRecorder);
@@ -86,18 +101,20 @@ const VoiceRecordingSection = () => {
       console.log("blob >> ", URL.createObjectURL(audioURL));
     }
 
-    const sound = new File([audioURL], "soundBlob", {
-      type: "audio/ogg",
-      lastModified: new Date().getTime(),
-    });
+    // const sound = new File([audioURL], "soundBlob", {
+    //   type: "audio/wav; codecs=MS_PCM",
+    //   lastModified: new Date().getTime(),
+    // });
+
+    const wavURL = new Blob(audioURL, { type: "audio/wav" });
 
     const link = document.createElement("a");
-    link.href = window.URL.createObjectURL(sound);
+    link.href = window.URL.createObjectURL(wavURL);
     link.download = `${+new Date()}.wav`;
     link.click();
 
     console.log("audioURL >> ", audioURL);
-    console.log("sound >> ", sound);
+    // console.log("sound >> ", sound);
   }, [audioURL]);
 
   const onClickAudioDownload = () => {
@@ -115,7 +132,7 @@ const VoiceRecordingSection = () => {
       <audio src={audioURL}></audio>
 
       <button onClick={onSubmitAudioFile}>녹음 결과 확인</button>
-      <button onClick={onClickAudioDownload}>다운로드</button>
+      <button onClick={onClickAudioDownload}>.wav 다운로드</button>
     </Container>
   );
 };
