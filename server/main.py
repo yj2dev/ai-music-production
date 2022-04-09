@@ -20,17 +20,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-templates = Jinja2Templates(directory="views")
-app.mount("/static", StaticFiles(directory="static"), name="static")
-
-
-@app.get('/', response_class=HTMLResponse)
-async def root(request: Request):
-    return templates.TemplateResponse("index.html", { "request": request })
-
-@app.get("/items/{id}", response_class=HTMLResponse)
-async def read_item(request: Request, id: str):
-    return templates.TemplateResponse("index.html", {"request": request, "id": id})
+@app.get('/')
+async def root():
+    return { "connect state" : True }
 
 @app.post("/set-item", response_class=HTMLResponse)
 async def read_item2(audio: UploadFile):
@@ -43,18 +35,7 @@ async def read_item2(audio: UploadFile):
 
     return "OK"
 
-    # return templates.TemplateResponse("index.html", {"request": request, "id": id})
-
-@app.get("/test", response_class=HTMLResponse)
-async def test(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request, "state": True, "uid": '3fjewioj21mmsakl'})
-
-
-@app.get("/test2", response_class=HTMLResponse)
-async def test2(request: Request):
-    return { 'img-url': 'https://aw3-eafs21-afopf', 'price': 540000 }
-
-
+    return templates.TemplateResponse("index.html", {"request": request, "id": id})
 
 
 if __name__ == '__main__':
