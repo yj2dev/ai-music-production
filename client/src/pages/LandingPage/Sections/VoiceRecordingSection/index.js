@@ -127,9 +127,7 @@ const VoiceRecordingSection = () => {
       <button onClick={onSubmitAudioFile}>녹음 결과 확인</button>
       <button onClick={onClickAudioDownload}>.wav 다운로드</button> <br />
       <button onClick={onClickRequestServer}>오디오 전송</button> <br />
-      <audio controls src={audioURL}>
-        [ Play ]
-      </audio>
+      <audio controls src={audioURL} />
     </Container>
   );
 };
