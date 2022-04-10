@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  height: 300px;
+  height: 500px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,16 +10,13 @@ export const Container = styled.div`
   background-color: #f5a017;
   //background: radial-gradient(circle, #ffd085 0%, #f5a017 100%);
 
-  & audio {
-    width: 500px;
-  }
   &.active {
+    height: 500px;
     background-color: #ec4820;
     //background: radial-gradient(circle, #ff9a81 0%, #f76642 100%);
   }
   & .content {
     font-size: 24px;
-
     color: #ffffff;
   }
 `;
@@ -77,4 +74,38 @@ export const OffIcon = styled.div`
   height: 22px;
   border-radius: 4px;
   background-color: rgba(0, 0, 0, 30%);
+`;
+export const Audio = styled.audio`
+  width: 400px;
+  border-radius: 50px;
+  box-shadow: 4px 4px 5px 1px rgba(0, 0, 0, 0.3);
+`;
+export const Button = styled.button`
+  box-shadow: 4px 4px 5px 1px rgba(0, 0, 0, 0.3);
+  margin-top: 24px;
+  //background-color: #ffffff;
+  //background-color: #ec4820;
+  background-color: transparent;
+  color: #ecd7b6;
+  width: 400px;
+  height: 54px;
+  border: none;
+  outline: none;
+  border-radius: 50px;
+  transition-duration: 0.2s;
+  font-size: 24px;
+  font-weight: 800;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    color: #ffffff;
+  }
+
+  &:active {
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.3);
+    position: relative;
+    top: 2px;
+  }
 `;

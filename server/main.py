@@ -1,8 +1,5 @@
 import uvicorn
-from fastapi import FastAPI, Request, Form, File, UploadFile
-from fastapi.responses import HTMLResponse
-from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
+from fastapi import FastAPI, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -24,7 +21,7 @@ app.add_middleware(
 async def root():
     return { "connect state" : True }
 
-@app.post("/set-item", response_class=HTMLResponse)
+@app.post("/music/create")
 async def read_item2(audio: UploadFile):
     # print("request >> ", request)
     # print('audio length >> ', len(audio))

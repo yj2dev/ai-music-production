@@ -1,3 +1,4 @@
+import React from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layouts from "./layouts";
@@ -7,7 +8,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route exact path="/" element={<Layouts />}></Route>
+          <Route path="/" element={<Layouts />}></Route>
         </Routes>
       </BrowserRouter>
     </>

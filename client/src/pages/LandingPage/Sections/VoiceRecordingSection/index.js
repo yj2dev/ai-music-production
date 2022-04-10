@@ -1,4 +1,5 @@
 // https://stackoverflow.com/questions/65191193/media-recorder-save-in-wav-format-across-browsers
+import React from "react";
 import { MediaRecorder, register } from "extendable-media-recorder";
 import { connect } from "extendable-media-recorder-wav-encoder";
 import {
@@ -6,15 +7,17 @@ import {
   RecordingButtonWrapper,
   RecordingButton,
   OffIcon,
+  Audio,
+  Button,
 } from "./styled";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { MdKeyboardVoice } from "react-icons/md";
 import { MMSSFormat } from "../../../../utils/Time";
-import useInterval from "../../../../hooks/useInterval";
+import PulseLoader from "react-spinners/PulseLoader";
 
 const VoiceRecordingSection = () => {
-  const REC_LIMIT_TIME = 5;
+  const REC_LIMIT_TIME = 120;
   const [onRecording, setOnRecording] = useState(false);
   const [audioData, setAudioData] = useState("");
   const [audioURL, setAudioURL] = useState("");
@@ -22,17 +25,19 @@ const VoiceRecordingSection = () => {
   const [source, setSource] = useState("");
   const [analyser, setAnalyser] = useState("");
   const [media, setMedia] = useState("");
-
   const [timer, setTimer] = useState("00:00");
+  const [loading, setLoading] = useState(false);
 
   async function extendMediaRecoder() {
     await register(await connect());
   }
+
   useEffect(() => {
     extendMediaRecoder(); // ".wav" 확장자로 변환을 지원
   }, []);
 
   const onClickOnRecording = async () => {
+    setAudioURL("");
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     const analyser = audioCtx.createScriptProcessor(0, 1, 1);
     setAnalyser(analyser);
@@ -55,7 +60,7 @@ const VoiceRecordingSection = () => {
       makeSound(stream);
 
       analyser.onaudioprocess = (e) => {
-        // 2분(120초)가 지나면 자동으로 녹음 중지
+        // REC_LIMIT_TIME(초)가 지나면 자동으로 녹음 중지
         setTimer(MMSSFormat(parseInt(e.playbackTime)));
 
         if (e.playbackTime > REC_LIMIT_TIME) {
@@ -80,6 +85,7 @@ const VoiceRecordingSection = () => {
   const onClickOffRecording = () => {
     media.ondataavailable = (e) => {
       setAudioData(e.data);
+      setAudioURL(URL.createObjectURL(e.data));
       setOnRecording(false);
     };
 
@@ -92,42 +98,49 @@ const VoiceRecordingSection = () => {
     source.disconnect();
   };
 
-  const onSubmitAudioFile = useCallback(() => {
-    if (audioData) {
-      console.log(URL.createObjectURL(audioData));
-      setAudioURL(URL.createObjectURL(audioData));
-    }
-  }, [audioData]);
+  const onClickRequest = () => {
+    if (!audioData) return;
 
-  const onClickAudioDownload = () => {
-    const link = document.createElement("a");
-    link.href = window.URL.createObjectURL(audioData);
-    link.download = `user_${+new Date()}.wav`;
-    link.click();
-  };
-
-  const onClickRequestServer = () => {
     const fd = new FormData();
+    setLoading(true);
+
     fd.append("audio", audioData, `user_${+new Date()}.wav`);
 
     axios
-      .post("http://localhost:8000/set-item", fd, {
+      .post("http://localhost:8000/music/create", fd, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
       .then((res) => {
         console.log("res >> ", res);
+        setLoading(false);
       })
       .catch((err) => {
         console.error(err);
+        setLoading(false);
       });
   };
+
+  // const onClickAudioDownload = () => {
+  //   const link = document.createElement("a");
+  //   link.href = window.URL.createObjectURL(audioData);
+  //   link.download = `user_${+new Date()}.wav`;
+  //   link.click();
+  // };
 
   return (
     <Container className={onRecording && "active"}>
       {!onRecording && (
-        <div className="content">버튼을 클릭하여 녹음을 시작합니다</div>
+        <div className="content">
+          {!audioURL ? (
+            <>"버튼을 클릭하여 녹음을 시작합니다"</>
+          ) : (
+            <>
+              "녹음된 음성을 <span>확인</span> 후 곡을 생성해주세요!"
+            </>
+          )}
+        </div>
       )}
       <RecordingButtonWrapper
         className={onRecording && "active"}
@@ -146,10 +159,14 @@ const VoiceRecordingSection = () => {
           )}
         </RecordingButton>
       </RecordingButtonWrapper>
-      {/*<button onClick={onSubmitAudioFile}>녹음 결과 확인</button>*/}
-      {/*<button onClick={onClickAudioDownload}>.wav 다운로드</button> <br />*/}
-      {/*<button onClick={onClickRequestServer}>오디오 전송</button> <br />*/}
-      {/*<audio controls src={audioURL} />*/}
+      {audioURL && <Audio controls src={audioURL} controlsList="nodownload" />}
+      {audioURL && (
+        <Button onClick={onClickRequest}>
+          {!loading ? "맞춤곡 생성" : "곡 생성중 "}
+          <PulseLoader color="#ffffff" size={10} margin={5} loading={loading} />
+        </Button>
+      )}
+      {/*<Button onClick={onClickAudioDownload}>녹음파일 다운로드</Button> <br />*/}
     </Container>
   );
 };
