@@ -110,7 +110,7 @@ const VoiceRecordingSection = () => {
     fd.append("audio", audioData, `user_${+new Date()}.wav`);
 
     axios
-      .post("http://localhost:8000/music/create", fd, {
+      .post("http://localhost:8000/api/music/create", fd, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

@@ -1,39 +1,30 @@
 import uvicorn
 from fastapi import FastAPI, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from app.routes import index, music
 
-app = FastAPI()
+def create_app():
+    app = FastAPI()
+    origins = [
+        "http://localhost:3000",
+        "https://subtle-croquembouche-77491b.netlify.app",
+    ]
 
-origins = [
-    "http://localhost:3000",
-    "https://subtle-croquembouche-77491b.netlify.app",
-]
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=origins,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+    app.include_router(index.router)
+    app.include_router(music.router)
 
-@app.get('/')
-async def root():
-    return { "connect state" : True }
+    return app
 
-@app.post("/music/create")
-async def read_item2(audio: UploadFile):
-    # print("request >> ", request)
-    # print('audio length >> ', len(audio))
-    print('audio name >> ', audio.filename)
-    # print('audio >> ', audio)
-    content = await audio.read()
-    print('content size >> ', len(content))
-
-    return "OK"
-
-    return templates.TemplateResponse("index.html", {"request": request, "id": id})
-
+app = create_app()
 
 if __name__ == '__main__':
+    # uvicorn.run("main:app")
     uvicorn.run(app)
