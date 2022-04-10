@@ -13,6 +13,7 @@ import {
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { MdKeyboardVoice } from "react-icons/md";
+import { RiErrorWarningFill } from "react-icons/ri";
 import { MMSSFormat } from "../../../../utils/Time";
 import PulseLoader from "react-spinners/PulseLoader";
 
@@ -27,6 +28,7 @@ const VoiceRecordingSection = () => {
   const [media, setMedia] = useState("");
   const [timer, setTimer] = useState("00:00");
   const [loading, setLoading] = useState(false);
+  const [showTip, setShowTip] = useState(false);
 
   async function extendMediaRecoder() {
     await register(await connect());
@@ -99,6 +101,7 @@ const VoiceRecordingSection = () => {
   };
 
   const onClickRequest = () => {
+    console.log("전송");
     if (!audioData) return;
 
     const fd = new FormData();
@@ -147,6 +150,18 @@ const VoiceRecordingSection = () => {
         onClick={!onRecording ? onClickOnRecording : onClickOffRecording}
       >
         {onRecording && <div className="timer">{timer}</div>}
+        {onRecording && (
+          <div
+            className="tip-icon"
+            onMouseEnter={() => setShowTip(true)}
+            onMouseLeave={() => setShowTip(false)}
+          >
+            <RiErrorWarningFill />
+          </div>
+        )}
+        {onRecording && showTip && (
+          <div className="tip-modal">최대 2분까지 녹음할 수 있습니다.</div>
+        )}
         <RecordingButton>
           {!onRecording ? (
             <>
@@ -161,7 +176,11 @@ const VoiceRecordingSection = () => {
       </RecordingButtonWrapper>
       {audioURL && <Audio controls src={audioURL} controlsList="nodownload" />}
       {audioURL && (
-        <Button onClick={onClickRequest}>
+        <Button
+          onClick={onClickRequest}
+          id={loading && "disabled"}
+          disabled={loading}
+        >
           {!loading ? "맞춤곡 생성" : "곡 생성중 "}
           <PulseLoader color="#ffffff" size={10} margin={5} loading={loading} />
         </Button>

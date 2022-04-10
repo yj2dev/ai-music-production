@@ -5,9 +5,6 @@ const LandingPage = () => {
   return (
     <>
       <VoiceRecordingSection />
-      <div>LandingPage</div>
-      <div>LandingPage</div>
-      <div>LandingPage</div>
     </>
   );
 };

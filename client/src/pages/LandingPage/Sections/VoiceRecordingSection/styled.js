@@ -19,6 +19,11 @@ export const Container = styled.div`
     font-size: 24px;
     color: #ffffff;
   }
+  & .content span {
+    color: #ec4820;
+    font-weight: bold;
+    background-color: #ffffff;
+  }
 `;
 export const RecordingButtonWrapper = styled.div`
   width: 72px;
@@ -36,15 +41,44 @@ export const RecordingButtonWrapper = styled.div`
   }
 
   & .timer {
-    //font-family: "Fredoka One", cursive;
-    //color: #ffffff;
-    //color: #ff0033;
     color: #e56d53;
     position: absolute;
     font-size: 28px;
     font-weight: 800;
     top: 15px;
     left: 74px;
+  }
+
+  & .tip-icon {
+    font-size: 24px;
+    color: #e79b8c;
+    position: absolute;
+    top: -6px;
+    right: 0px;
+    transition: 0.1s;
+    cursor: default;
+  }
+  & .tip-icon:hover {
+    color: #ffffff;
+  }
+  & .tip-modal {
+    position: absolute;
+    top: -54px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    white-space: nowrap;
+    background-color: #ffffff;
+
+    &::before {
+      content: "";
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background-color: #ffffff;
+      bottom: -4px;
+      left: 146px;
+      transform: rotate(45deg);
+    }
   }
 `;
 export const RecordingButton = styled.button`
@@ -83,8 +117,6 @@ export const Audio = styled.audio`
 export const Button = styled.button`
   box-shadow: 4px 4px 5px 1px rgba(0, 0, 0, 0.3);
   margin-top: 24px;
-  //background-color: #ffffff;
-  //background-color: #ec4820;
   background-color: transparent;
   color: #ecd7b6;
   width: 400px;
