@@ -15,10 +15,12 @@ export const Container = styled.div`
     background-color: #ec4820;
     //background: radial-gradient(circle, #ff9a81 0%, #f76642 100%);
   }
+
   & .content {
     font-size: 24px;
     color: #ffffff;
   }
+
   & .content span {
     color: #ec4820;
     font-weight: bold;
@@ -58,9 +60,11 @@ export const RecordingButtonWrapper = styled.div`
     transition: 0.1s;
     cursor: default;
   }
+
   & .tip-icon:hover {
     color: #ffffff;
   }
+
   & .tip-modal {
     position: absolute;
     top: -54px;
@@ -116,8 +120,11 @@ export const Audio = styled.audio`
 `;
 export const Button = styled.button`
   box-shadow: 4px 4px 5px 1px rgba(0, 0, 0, 0.3);
+  //box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.3);
+
   margin-top: 24px;
-  background-color: transparent;
+  //background-color: transparent;
+  background-color: #ff0033;
   color: #ecd7b6;
   width: 400px;
   height: 54px;
