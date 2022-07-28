@@ -100,7 +100,7 @@ const VoiceRecordingSection = () => {
     source.disconnect();
   };
 
-  const onClickRequest = () => {
+  const onClickRequest = async () => {
     console.log("전송");
     if (!audioData) return;
 
@@ -108,6 +108,9 @@ const VoiceRecordingSection = () => {
     setLoading(true);
 
     fd.append("audio", audioData, `user_${+new Date()}.wav`);
+
+    // const result = await axios.get("http://localhost:8000/api/music/test");
+    // console.log("axios result >> ", result.data);
 
     axios
       .post("http://localhost:8000/api/music/create", fd, {
@@ -117,10 +120,11 @@ const VoiceRecordingSection = () => {
       })
       .then((res) => {
         console.log("res >> ", res);
-        setLoading(false);
       })
       .catch((err) => {
         console.error(err);
+      })
+      .finally(() => {
         setLoading(false);
       });
   };
@@ -134,6 +138,11 @@ const VoiceRecordingSection = () => {
 
   return (
     <Container className={onRecording && "active"}>
+      <input
+        type="file"
+        accept="audio/wav"
+        onChange={(e) => console.log(e.target.files[0])}
+      />
       {!onRecording && (
         <div className="content">
           {!audioURL ? (

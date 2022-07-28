@@ -1,5 +1,5 @@
 # Local Netlify folder
 .netlify
 
-# Server - Data
-server/Data
+# Server - data
+#server/data

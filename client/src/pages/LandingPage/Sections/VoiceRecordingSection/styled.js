@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  user-select: none;
   height: 500px;
   display: flex;
   justify-content: center;
