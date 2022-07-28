@@ -112,6 +112,8 @@ const VoiceRecordingSection = () => {
     // const result = await axios.get("http://localhost:8000/api/music/test");
     // console.log("axios result >> ", result.data);
 
+    console.log("audioData >> ", audioData);
+
     axios
       .post("http://localhost:8000/api/music/create", fd, {
         headers: {
