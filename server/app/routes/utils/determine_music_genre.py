@@ -10,10 +10,10 @@ import time
 import os
 
 ### 초기 설정
-INPUT_PATH = "app/data/input_audio"    # 입력음성이 들어갈 폴더 경로 지정
-EXT_MUSIC_PROP = "app/routes/utils/extract_music_prop_0727_70.csv"    # 추출된 음악속성 CSV 경로 지정
+INPUT_PATH = "app/routes/data/input_audio"    # 입력음성이 들어갈 폴더 경로 지정
+MUSIC_PROP = "app/routes/utils/extract_music_prop_0727_70.csv"    # 추출된 음악속성 CSV 경로 지정
 
-def set_genre(filename = None):
+def determine_genre(filename = None):
     ### 속성 추출 함수
     def extract_music_prop(filename = None):
         path = f"{INPUT_PATH}/{filename}"
@@ -63,11 +63,10 @@ def set_genre(filename = None):
             audio_info[1 + i] = mfccs[idx].var()
 
         audio_info[59] = None
-        return audio_info
+        return audio_info\
 
     ### 입력받은 목소리 속성 추출 후 원본 데이터프레임에 추가
-    df = pd.read_csv({EXT_MUSIC_PROP}, index_col='filename')
-    filename = "SAMPLE_BTS_hiphop.wav"    # 임시로 더미데이터 입력
+    df = pd.read_csv(MUSIC_PROP, index_col='filename')
     audio_info = extract_music_prop(filename)
     audio_info.pop(0)
     df.loc[filename] = audio_info
@@ -102,6 +101,6 @@ def set_genre(filename = None):
         else: genre_score[genre] = score
 
     max_genre = max(genre_score, key=genre_score.get)
-    print(genre_score)
-    print("추천 장르: ", max_genre)
+#     print("[선별된 장르목록]\n", similar_songs)
+#     print("[추천 장르] ", max_genre)
     return max_genre
