@@ -1,8 +1,12 @@
-import uvicorn
-from fastapi import FastAPI, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi import FastAPI, UploadFile
 from app.routes import index, music
+from dotenv import load_dotenv
+import uvicorn
+import os
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 def create_app():
     app = FastAPI()
@@ -21,6 +25,7 @@ def create_app():
     app.include_router(music.router)
 
     return app
+
 
 
 app = create_app()

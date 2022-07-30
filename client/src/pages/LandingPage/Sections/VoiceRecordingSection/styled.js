@@ -20,6 +20,7 @@ export const Container = styled.div`
   & .content {
     font-size: 24px;
     color: #ffffff;
+    margin-top: 12px;
   }
 
   & .content span {

@@ -16,6 +16,7 @@ import { MdKeyboardVoice } from "react-icons/md";
 import { RiErrorWarningFill } from "react-icons/ri";
 import { MMSSFormat } from "../../../../utils/Time";
 import PulseLoader from "react-spinners/PulseLoader";
+import { genreOfKR } from "../../../../utils/Translate";
 
 const VoiceRecordingSection = () => {
   const REC_LIMIT_TIME = 120;
@@ -29,6 +30,8 @@ const VoiceRecordingSection = () => {
   const [timer, setTimer] = useState("00:00");
   const [loading, setLoading] = useState(false);
   const [showTip, setShowTip] = useState(false);
+
+  const [genre, setGenre] = useState("");
 
   async function extendMediaRecoder() {
     await register(await connect());
@@ -109,9 +112,6 @@ const VoiceRecordingSection = () => {
 
     fd.append("audio", audioData, `user_${+new Date()}.wav`);
 
-    // const result = await axios.get("http://localhost:8000/api/music/test");
-    // console.log("axios result >> ", result.data);
-
     console.log("audioData >> ", audioData);
 
     axios
@@ -122,6 +122,7 @@ const VoiceRecordingSection = () => {
       })
       .then((res) => {
         console.log("res >> ", res);
+        setGenre(res.data.genre);
       })
       .catch((err) => {
         console.error(err);
@@ -143,7 +144,10 @@ const VoiceRecordingSection = () => {
       <input
         type="file"
         accept="audio/wav"
-        onChange={(e) => console.log(e.target.files[0])}
+        onChange={(e) => {
+          // setOnRecording(true);
+          setAudioData(e.target.files[0]);
+        }}
       />
       {!onRecording && (
         <div className="content">
@@ -196,6 +200,12 @@ const VoiceRecordingSection = () => {
           <PulseLoader color="#ffffff" size={10} margin={5} loading={loading} />
         </Button>
       )}
+      {genre && (
+        <div className="content">
+          손님의 음성은 <span>{genreOfKR(genre)}</span>에 잘 어울립니다.
+        </div>
+      )}
+
       {/*<Button onClick={onClickAudioDownload}>녹음파일 다운로드</Button> <br />*/}
     </Container>
   );

@@ -1,5 +1,11 @@
 # Local Netlify folder
 .netlify
 
+# Environment
+.env
+
+# Google Cloud Storage Key
+gcs_key.json
+
 # Server - data
 #server/data

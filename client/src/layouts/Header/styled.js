@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  user-select: none;
   background-color: #ec4820;
   color: #ffffff;
   height: 48px;
