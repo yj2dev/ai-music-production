@@ -9,3 +9,6 @@ gcs_key.json
 
 # Server - data
 #server/data
+
+# Server - model
+server/app/write_lyrics_model

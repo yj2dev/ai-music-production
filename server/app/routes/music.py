@@ -1,4 +1,5 @@
 from app.routes.utils.determine_music_genre import determine_genre
+from app.routes.utils.write_lyrics import write_lyrics
 from app.routes.utils.test import run, import_csv
 from fastapi import APIRouter, UploadFile
 from google.cloud import storage
@@ -10,12 +11,11 @@ router = APIRouter(prefix="/api/music")
 
 @router.post("/create")
 async def create_music(audio: UploadFile):
+
 #     [오디오 업로드]
 #     로컬 환경 업로드(사용안함)
     with open(f"{os.path.join(os.path.dirname(__file__))}\data\input_audio\{audio.filename}", "wb") as buffer:
         shutil.copyfileobj(audio.file, buffer)
-
-
 
 #     return True
 #     os.environ["GOOGLE_APPLICATION_CREDENTIALS"]
@@ -49,19 +49,21 @@ async def create_music(audio: UploadFile):
 
 #     [장르 판별]
     genre = determine_genre(audio.filename)
-    return {"success": True, "genre": genre}
 
-#     [작곡 및 작사]
+#     [작사]
+    lyric = write_lyrics(genre)
 
+
+#     [작곡]
 
 #     [목소리 매핑]
+    return {"success": True, "genre": genre, "lyric": lyric}
 
-    return False
+
+
 
 
 @router.get("/test")
 def connect_state():
-    print(run())
-    print(import_csv())
-
-    return {"/api/music": True}
+    return write_lyrics("발라드")
+    # return {"/api/music": True}
