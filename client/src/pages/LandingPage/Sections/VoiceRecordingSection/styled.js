@@ -2,40 +2,37 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   user-select: none;
-  //height: 500px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   transition: 0.2s;
-  background-color: #f5a017;
-  //background: radial-gradient(circle, #ffd085 0%, #f5a017 100%);
+  margin-top: 64px;
 
   &.active {
-    height: 500px;
-    background-color: #ec4820;
-    //background: radial-gradient(circle, #ff9a81 0%, #f76642 100%);
+    background-color: #fff;
   }
 
   & .content {
     font-size: 24px;
-    color: #ffffff;
-    margin-top: 12px;
+    color: #000;
+    margin-top: 36px;
   }
 
   & .content-lyric {
     border: 4px solid #ec4820;
-    //box-shadow: inset 0px 0px 4px 2px #ec4820;
+    box-shadow: 4px 4px 5px 1px rgba(0, 0, 0, 0.3);
     white-space: pre-wrap;
-    font-size: 16px;
+    font-size: 18px;
     height: 500px;
     overflow: scroll;
-    color: #fff;
+    color: #000;
     text-align: center;
     padding: 16px;
-    margin: 12px;
+    margin: 30px;
     border-radius: 20px;
     user-select: text;
+    line-height: 32px;
   }
 
   & .content span {
@@ -79,23 +76,24 @@ export const RecordingButtonWrapper = styled.div`
   }
 
   & .tip-icon:hover {
-    color: #ffffff;
+    color: rgba(0, 0, 0, 20%);
   }
 
   & .tip-modal {
+    z-index: 1024;
     position: absolute;
     top: -54px;
     padding: 8px 16px;
     border-radius: 4px;
     white-space: nowrap;
-    background-color: #ffffff;
-
+    background-color: #cccccc;
+    color: #000;
     &::before {
       content: "";
       position: absolute;
       width: 12px;
       height: 12px;
-      background-color: #ffffff;
+      background-color: #cccccc;
       bottom: -4px;
       left: 146px;
       transform: rotate(45deg);
@@ -164,4 +162,11 @@ export const Button = styled.button`
     position: relative;
     top: 2px;
   }
+`;
+export const SectionLine = styled.div`
+  width: 100%;
+  background-color: #ffffff;
+  margin: 28px 0 0 0;
+  padding: 10px 0;
+  box-shadow: 0px 5px 2px 1px #eeeeee;
 `;

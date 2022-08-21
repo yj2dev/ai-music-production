@@ -9,6 +9,7 @@ import {
   OffIcon,
   Audio,
   Button,
+  SectionLine,
 } from "./styled";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -42,8 +43,14 @@ const VoiceRecordingSection = () => {
     extendMediaRecoder(); // ".wav" 확장자로 변환을 지원
   }, []);
 
-  const onClickOnRecording = async () => {
+  const resetResult = () => {
+    setGenre("");
+    setLyric("");
     setAudioURL("");
+  };
+
+  const onClickOnRecording = async () => {
+    resetResult();
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     const analyser = audioCtx.createScriptProcessor(0, 1, 1);
     setAnalyser(analyser);
@@ -124,7 +131,7 @@ const VoiceRecordingSection = () => {
       .then((res) => {
         console.log("res >> ", res);
         setGenre(res.data.genre);
-        setLyric(res.data.lyric)
+        setLyric(res.data.lyric);
       })
       .catch((err) => {
         console.error(err);
@@ -143,14 +150,14 @@ const VoiceRecordingSection = () => {
 
   return (
     <Container className={onRecording && "active"}>
-      <input
-        type="file"
-        accept="audio/wav"
-        onChange={(e) => {
-          // setOnRecording(true);
-          setAudioData(e.target.files[0]);
-        }}
-      />
+      {/*<input*/}
+      {/*  type="file"*/}
+      {/*  accept="audio/wav"*/}
+      {/*  onChange={(e) => {*/}
+      {/*    // setOnRecording(true);*/}
+      {/*    setAudioData(e.target.files[0]);*/}
+      {/*  }}*/}
+      {/*/>*/}
       {!onRecording && (
         <div className="content">
           {!audioURL ? (
@@ -192,7 +199,7 @@ const VoiceRecordingSection = () => {
         </RecordingButton>
       </RecordingButtonWrapper>
       {audioURL && <Audio controls src={audioURL} controlsList="nodownload" />}
-      {audioURL && (
+      {audioURL && !genre && (
         <Button
           onClick={onClickRequest}
           id={loading && "disabled"}
@@ -202,18 +209,13 @@ const VoiceRecordingSection = () => {
           <PulseLoader color="#ffffff" size={10} margin={5} loading={loading} />
         </Button>
       )}
+      {genre && <SectionLine />}
       {genre && (
         <div className="content">
-          손님의 음성은 <span>{genreOfKR(genre)}</span>에 잘 어울립니다.
+          당신의 음성은 <span>{genreOfKR(genre)}</span>에 잘 어울립니다.
         </div>
       )}
-      {lyric && (
-        <div className="content-lyric">
-          {lyric}
-        </div>
-      )}
-
-      {/*<Button onClick={onClickAudioDownload}>녹음파일 다운로드</Button> <br />*/}
+      {lyric && <div className="content-lyric">{lyric}</div>}
     </Container>
   );
 };
