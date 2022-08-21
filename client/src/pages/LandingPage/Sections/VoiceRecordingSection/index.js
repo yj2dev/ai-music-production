@@ -32,6 +32,7 @@ const VoiceRecordingSection = () => {
   const [showTip, setShowTip] = useState(false);
 
   const [genre, setGenre] = useState("");
+  const [lyric, setLyric] = useState("");
 
   async function extendMediaRecoder() {
     await register(await connect());
@@ -123,6 +124,7 @@ const VoiceRecordingSection = () => {
       .then((res) => {
         console.log("res >> ", res);
         setGenre(res.data.genre);
+        setLyric(res.data.lyric)
       })
       .catch((err) => {
         console.error(err);
@@ -203,6 +205,11 @@ const VoiceRecordingSection = () => {
       {genre && (
         <div className="content">
           손님의 음성은 <span>{genreOfKR(genre)}</span>에 잘 어울립니다.
+        </div>
+      )}
+      {lyric && (
+        <div className="content-lyric">
+          {lyric}
         </div>
       )}
 

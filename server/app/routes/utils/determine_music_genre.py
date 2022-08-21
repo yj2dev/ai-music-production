@@ -84,8 +84,7 @@ def determine_genre(filename = None):
         return series.head(n).to_frame()
 
     similar_songs = find_similar_songs(filename)
-    print(similar_songs)
-
+    # print(similar_songs)
     ### 점수가 가장 높은 장르 추천
     genre_score = {}
     for v in similar_songs.iterrows():

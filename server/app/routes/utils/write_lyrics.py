@@ -1,5 +1,6 @@
-import torch
 from transformers import BertTokenizerFast, GPT2LMHeadModel
+import torch
+import re
 
 def write_lyrics(genre):
     path = "app/write_lyrics_model"
@@ -37,6 +38,9 @@ def write_lyrics(genre):
 
         for i, generated in enumerate(generate_ids):
             gen = "{}: {}".format(i, tokenizer.decode(generated, skip_special_tokens=True))
+            gen = re.sub(r"<br>", "\n", gen)
+            idx = gen.index('\n')
+            gen = gen[(idx + 2)::]
             return gen
 
     prompt = f"<{genre}>"

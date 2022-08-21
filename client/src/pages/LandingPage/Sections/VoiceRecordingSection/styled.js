@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   user-select: none;
-  height: 500px;
+  //height: 500px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,6 +21,21 @@ export const Container = styled.div`
     font-size: 24px;
     color: #ffffff;
     margin-top: 12px;
+  }
+
+  & .content-lyric {
+    border: 4px solid #ec4820;
+    //box-shadow: inset 0px 0px 4px 2px #ec4820;
+    white-space: pre-wrap;
+    font-size: 16px;
+    height: 500px;
+    overflow: scroll;
+    color: #fff;
+    text-align: center;
+    padding: 16px;
+    margin: 12px;
+    border-radius: 20px;
+    user-select: text;
   }
 
   & .content span {
