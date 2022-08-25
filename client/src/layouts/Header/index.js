@@ -19,15 +19,10 @@ const Header = () => {
           src="img/logo_fw.png"
           className={scrollPosition == 0 && "deactive"}
         />
-        {/*{scrollPosition > 0 ? (*/}
-        {/*  <img src="img/logo_fw.png"  />*/}
-        {/*) : (*/}
-        {/*  <img src="img/logo_fb.png" />*/}
-        {/*)}*/}
-
-        {/*<div className="title">AI Music Production</div>*/}
-        <div className="title">맞춤형 작사작곡</div>
-        {/*<div className="title">노래줄까</div>*/}
+        <div className="title">
+          맞춤형 작사작곡&nbsp;
+          <span style={{ color: "#00a0cb", fontSize: "18px" }}>데모</span>
+        </div>
       </Logo>
     </Container>
   );

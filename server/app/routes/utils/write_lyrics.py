@@ -3,7 +3,7 @@ import torch
 import re
 
 def write_lyrics(genre):
-    path = "app/write_lyrics_model"
+    path = "app/model/write_lyrics_model"
 
     # 모델 불러오기
     model = GPT2LMHeadModel.from_pretrained(path)

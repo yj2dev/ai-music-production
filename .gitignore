@@ -11,4 +11,4 @@ gcs_key.json
 #server/data
 
 # Server - model
-server/app/write_lyrics_model
+server/app/model/write_lyrics_model

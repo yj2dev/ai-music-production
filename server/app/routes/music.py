@@ -1,7 +1,9 @@
 from app.routes.utils.determine_music_genre import determine_genre
 from app.routes.utils.write_lyrics import write_lyrics
+from app.routes.utils.composition import composition
 from app.routes.utils.test import run, import_csv
 from fastapi import APIRouter, UploadFile
+from fastapi.responses import StreamingResponse
 from google.cloud import storage
 import shutil
 import boto3
@@ -12,52 +14,39 @@ router = APIRouter(prefix="/api/music")
 @router.post("/create")
 async def create_music(audio: UploadFile):
 
-#     [오디오 업로드]
-#     로컬 환경 업로드(사용안함)
-    with open(f"{os.path.join(os.path.dirname(__file__))}\data\input_audio\{audio.filename}", "wb") as buffer:
-        shutil.copyfileobj(audio.file, buffer)
+###     [오디오 업로드] - 로컬 업로드
+#     with open(f"{os.path.join(os.path.dirname(__file__))}\data\input_audio\{audio.filename}", "wb") as buffer:
+#         shutil.copyfileobj(audio.file, buffer)
 
-#     return True
-#     os.environ["GOOGLE_APPLICATION_CREDENTIALS"]
+###     [장르 판별]
+#     genre = determine_genre(audio.filename)
+
+###     [작사]
+#     lyric = write_lyrics(genre)
+
+###     [작곡]
+    is_created = composition("Hiphop")
+    print('is_created >> ', is_created)
+
+    composition_path = "app/routes/data/output_audio/output_Hiphop_1661240150.mid"
+    def iterfile():  #
+        with open(composition_path, mode="rb") as file_like:  #
+            yield from file_like
+
+    if not is_created: return False
+
+    return StreamingResponse(iterfile(), media_type="audio/midi")
 
 
+    # print('result >> ', result)
+    # return result
 
-
-#     storage_client = storage.Client()
-#     buckets = list(storage_client.list_buckets())
-#     print(buckets)
-#
-#     print("path >> ", os.path.dirname(__file__))
-#     bucket_name = os.environ["GCP_BUCKET_NAME"]     # 서비스 계정 생성한 bucket 이름 입력
-#     source_file_name = f"{os.path.join(os.path.dirname(__file__))}\data\input_audio\{audio.filename}"
-# # GCP에 업로드할 파일 절대경로
-#     destination_blob_name = audio.filename    # 업로드할 파일을 GCP에 저장할 때의 이름
-#
-#     print('source_file_name >> ', source_file_name)
-#
-#
-#     storage_client = storage.Client()
-#     bucket = storage_client.bucket(bucket_name)
-#     blob = bucket.blob(destination_blob_name)
-#
-#     blob.upload_from_filename(source_file_name)
-
+    # return {"success": True, "genre": genre, "lyric": lyric}
 
 
 
-
-
-#     [장르 판별]
-    genre = determine_genre(audio.filename)
-
-#     [작사]
-    lyric = write_lyrics(genre)
-
-
-#     [작곡]
-
-#     [목소리 매핑]
-    return {"success": True, "genre": genre, "lyric": lyric}
+###     [작사 작곡 병합] (개발계획없음)
+###     [목소리 매핑] (개발계획없음)
 
 
 

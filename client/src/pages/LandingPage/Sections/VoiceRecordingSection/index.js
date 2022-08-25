@@ -1,7 +1,8 @@
 // https://stackoverflow.com/questions/65191193/media-recorder-save-in-wav-format-across-browsers
-import React from "react";
+import React, { useRef } from "react";
 import { MediaRecorder, register } from "extendable-media-recorder";
 import { connect } from "extendable-media-recorder-wav-encoder";
+import MidiPlayer from "react-midi-player";
 import {
   Container,
   RecordingButtonWrapper,
@@ -28,12 +29,28 @@ const VoiceRecordingSection = () => {
   const [source, setSource] = useState("");
   const [analyser, setAnalyser] = useState("");
   const [media, setMedia] = useState("");
+
   const [timer, setTimer] = useState("00:00");
   const [loading, setLoading] = useState(false);
   const [showTip, setShowTip] = useState(false);
 
   const [genre, setGenre] = useState("");
   const [lyric, setLyric] = useState("");
+
+  const midi_data = useRef("");
+  //   const midi_data = atob(
+  //     "\
+  // TVRoZAAAAAYAAQADAGRNVHJrAAAAGgD/AwtMaXR0bGUgTGFtZQD/UQMKLCsA/y8ATVRyawAAAPMA/wMG\
+  // THlyaWNzAP8BGEBUTWFyeSBXYXMgQSBMaXR0bGUgTGFtZWT/AQNcTWFL/wEDcnkgGf8BBHdhcyAy/wEC\
+  // YSAy/wEDbGl0Mv8BBHRsZSAy/wEFbGFtZSxk/wEEL0xpdDL/AQR0bGUgMv8BBWxhbWUsZP8BBC9MaXQy\
+  // /wEEdGxlIDL/AQVsYW1lLGT/AQMvTWFL/wEDcnkgGf8BBHdhcyAy/wECYSAy/wEDbGl0Mv8BBHRsZSAy\
+  // /wEFbGFtZSwy/wEDL0EgMv8BA2xpdDL/AQR0bGUgMv8BBWxhbWUgMv8BBHdhcyAy/wEEc2hlIQD/LwBN\
+  // VHJrAAAA8gD/AwVNdXNpYwDAC2SQQH9LgEBAAJA+fxmAPkAAkDx/MoA8QACQPn8ygD5AAJBAfzKAQEAA\
+  // kEB/MoBAQACQQH9agEBACpA+fzKAPkAAkD5/MoA+QACQPn9agD5ACpBAfzKAQEAAkEN/MoBDQACQQ39a\
+  // gENACpBAf0uAQEAAkD5/GYA+QACQPH8ygDxAAJA+fzKAPkAAkEB/MoBAQACQQH8ygEBAAJBAfzKAQEAZ\
+  // kEB/GYBAQACQPn8ygD5AAJA+fzKAPkAAkEB/MoBAQACQPn8ygD5AAJA8f2RAZABDZABIf1qAPEAAQEAA\
+  // Q0AASEAK/y8A"
+  //   );
 
   async function extendMediaRecoder() {
     await register(await connect());
@@ -130,6 +147,9 @@ const VoiceRecordingSection = () => {
       })
       .then((res) => {
         console.log("res >> ", res);
+
+        // midi_data.current = atob(res.data);
+        // setMidiData(res.data);
         setGenre(res.data.genre);
         setLyric(res.data.lyric);
       })
@@ -150,6 +170,7 @@ const VoiceRecordingSection = () => {
 
   return (
     <Container className={onRecording && "active"}>
+      <MidiPlayer data={midi_data} />
       {/*<input*/}
       {/*  type="file"*/}
       {/*  accept="audio/wav"*/}
@@ -198,6 +219,7 @@ const VoiceRecordingSection = () => {
           )}
         </RecordingButton>
       </RecordingButtonWrapper>
+      <Audio controls src={} ></Audio>
       {audioURL && <Audio controls src={audioURL} controlsList="nodownload" />}
       {audioURL && !genre && (
         <Button
