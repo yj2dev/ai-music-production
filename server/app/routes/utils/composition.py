@@ -1,12 +1,12 @@
 from keras.layers import Dense, Dropout, LSTM, CuDNNLSTM
 from keras.models import Sequential
 from keras.models import load_model
+from midi2audio import FluidSynth
 from keras.utils import np_utils
 from music21 import *
 import glob, pickle
 import numpy as np
 import time
-
 def composition(genre):
     print("genre >> ", genre)
     notes = []
@@ -14,7 +14,6 @@ def composition(genre):
     ts = {}
     bc = []
     dn = []
-    ts = {}
 
     for i, file in enumerate(glob.glob("app/midi/rap/*.mid")):
         midi = converter.parse(file)
@@ -148,10 +147,15 @@ def composition(genre):
 
     # Note/Chord => Stream => MIDI File
 
-    try:
-        midi_stream = stream.Stream(output_notes)
-        file_path = f'app/routes/data/output_audio/output_{genre}_{str(int(time.time()))}.mid'
-        midi_stream.write('midi', fp=file_path)
-        return True
-    except:
-        return False
+
+    fs = FluidSynth()
+    # try:
+
+    midi_stream = stream.Stream(output_notes)
+    file_path = f'app/routes/data/output_audio/output_{genre}_{str(int(time.time()))}.mid'
+    midi_stream.write('midi', fp=file_path)
+    fs.midi_to_audio(file_path, 'app/routes/data/output_audio_wav/temp.wav')
+
+    #     return True
+    # except:
+    #     return False
