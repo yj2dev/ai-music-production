@@ -147,15 +147,14 @@ def composition(genre):
 
     # Note/Chord => Stream => MIDI File
 
-
     fs = FluidSynth()
-    # try:
+    try:
+        midi_stream = stream.Stream(output_notes)
+        file_path = f'app/routes/data/output_audio/output_{genre}_{str(int(time.time()))}.mid'
+        midi_stream.write('midi', fp=file_path)
+        return True
+    except:
+        return False
 
-    midi_stream = stream.Stream(output_notes)
-    file_path = f'app/routes/data/output_audio/output_{genre}_{str(int(time.time()))}.mid'
-    midi_stream.write('midi', fp=file_path)
-    fs.midi_to_audio(file_path, 'app/routes/data/output_audio_wav/temp.wav')
+    # fs.midi_to_audio(file_path, 'app/routes/data/output_audio_wav/temp.wav')
 
-    #     return True
-    # except:
-    #     return False
