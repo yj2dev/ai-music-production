@@ -38,7 +38,6 @@ const VoiceRecordingSection = () => {
   const [lyric, setLyric] = useState("");
 
   const [midiData, setMidiData] = useState("");
-  const [resultURL, setResultURL] = useState("");
 
   async function extendMediaRecoder() {
     await register(await connect());
@@ -51,6 +50,7 @@ const VoiceRecordingSection = () => {
   const resetResult = () => {
     setGenre("");
     setLyric("");
+    setMidiData("");
     setAudioURL("");
   };
 
@@ -117,7 +117,6 @@ const VoiceRecordingSection = () => {
   };
 
   const onClickRequest = async () => {
-    console.log("전송");
     if (!audioData) return;
 
     const fd = new FormData();
@@ -156,18 +155,6 @@ const VoiceRecordingSection = () => {
 
   return (
     <Container className={onRecording && "active"}>
-      {/*<Audio controls src={resultURL} controlsList="nodownload" />*/}
-
-      <MidiPlayer data={midiData} />
-      {/*<MidiPlayer src= />*/}
-      {/*<input*/}
-      {/*  type="file"*/}
-      {/*  accept="audio/wav"*/}
-      {/*  onChange={(e) => {*/}
-      {/*    // setOnRecording(true);*/}
-      {/*    setAudioData(e.target.files[0]);*/}
-      {/*  }}*/}
-      {/*/>*/}
       {!onRecording && (
         <div className="content">
           {!audioURL ? (
@@ -225,6 +212,7 @@ const VoiceRecordingSection = () => {
           당신의 음성은 <span>{genreOfKR(genre)}</span>에 잘 어울립니다.
         </div>
       )}
+      {genre && <MidiPlayer data={midiData} />}
       {lyric && <div className="content-lyric">{lyric}</div>}
     </Container>
   );
