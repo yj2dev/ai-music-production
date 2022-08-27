@@ -5,5 +5,5 @@
 app/model/write_lyrics_model/pytorch_model.bin
 
 # Input audio and output audio
-app/data/input_audio/*
-app/data/output_audio/*
+app/data/input_audio/*.wav
+app/data/output_audio/*.mid

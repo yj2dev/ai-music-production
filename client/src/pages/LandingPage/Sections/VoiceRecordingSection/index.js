@@ -202,8 +202,10 @@ const VoiceRecordingSection = () => {
           id={loading && "disabled"}
           disabled={loading}
         >
-          {!loading ? "맞춤곡 생성" : "곡 생성중 "}
+          <span style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+          {!loading ? "맞춤곡 생성" : "곡 생성중 "}&nbsp;
           <PulseLoader color="#ffffff" size={10} margin={5} loading={loading} />
+          </span>
         </Button>
       )}
       {genre && <SectionLine />}
