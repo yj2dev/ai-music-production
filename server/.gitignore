@@ -1,3 +1,9 @@
 # Environment
 .env
 
+# Big Size Model
+app/model/write_lyrics_model/pytorch_model.bin
+
+# Input audio and output audio
+app/data/input_audio/*
+app/data/output_audio/*
