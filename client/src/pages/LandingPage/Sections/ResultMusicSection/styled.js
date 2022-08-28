@@ -5,43 +5,33 @@ export const Container = styled.div`
   height: 100vh;
   transition: 0.2s;
   background: linear-gradient(90deg, #ffffff, #fbf8f6);
-
-  & .content {
-    text-align: center;
-    font-size: 24px;
-    color: #000;
-    margin-top: 36px;
-  }
-
-  & .content-lyric {
-    border: 4px solid #ec4820;
-    box-shadow: 4px 4px 5px 1px rgba(0, 0, 0, 0.3);
-    white-space: pre-wrap;
-    font-size: 18px;
-    height: 500px;
-    overflow: scroll;
-    color: #000;
-    text-align: center;
-    padding: 16px;
-    margin: 30px;
-    border-radius: 20px;
-    user-select: text;
-    line-height: 32px;
-  }
-
-  & .content span {
+  margin-top: 64px;
+`;
+export const ResultGenre = styled.div`
+  text-align: center;
+  font-size: 24px;
+  color: #000;
+  padding: 36px 0;
+  & span {
     color: #ec4820;
     font-weight: bold;
     background-color: #ffffff;
   }
 `;
-
-export const SectionLine = styled.div`
-  width: 100%;
-  background-color: #ffffff;
-  margin: 28px 0 0 0;
-  padding: 10px 0;
-  box-shadow: 0px 5px 2px 1px #eeeeee;
+export const ResultLyric = styled.div`
+  border: 4px solid #ec4820;
+  box-shadow: 4px 4px 5px 1px rgba(0, 0, 0, 0.3);
+  white-space: pre-wrap;
+  font-size: 18px;
+  height: 500px;
+  overflow: scroll;
+  color: #000;
+  text-align: center;
+  padding: 16px;
+  margin: 30px;
+  border-radius: 20px;
+  user-select: text;
+  line-height: 32px;
 `;
 export const MidiBox = styled.div`
   display: flex;

@@ -1,5 +1,12 @@
 import React, { useRef } from "react";
-import { Container, MidiBox, MidiWrapper, SectionLine } from "./styled";
+import {
+  Container,
+  MidiBox,
+  MidiWrapper,
+  ResultGenre,
+  ResultLyric,
+  SectionLine,
+} from "./styled";
 import { useSelector } from "react-redux";
 import { genreOfKR } from "../../../../utils/Translate";
 import MidiPlayer from "../../../../components/MidiPlayer";
@@ -11,21 +18,21 @@ function ResultMusicSection() {
 
   return (
     <Container>
-      {genre && <SectionLine />}
       {genre && (
-        <div className="content">
+        <ResultGenre>
           당신의 음성은 <span>{genreOfKR(genre)}</span>에 잘 어울립니다.
-        </div>
+        </ResultGenre>
       )}
-
-      {genre && (
+      {/*작곡 결과입니다.*/}
+      {midiData && (
         <MidiBox>
           <MidiWrapper>
             <MidiPlayer onPlay={true} midiData={midiData} />
           </MidiWrapper>
         </MidiBox>
       )}
-      {lyric && <div className="content-lyric">{lyric}</div>}
+      {/*작사 결과입니다.*/}
+      {lyric && <ResultLyric>{lyric}</ResultLyric>}
     </Container>
   );
 }
