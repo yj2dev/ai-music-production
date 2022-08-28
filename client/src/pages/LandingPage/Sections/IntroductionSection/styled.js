@@ -9,16 +9,16 @@ export const Container = styled.div`
 
 export const Section = styled.div`
   display: flex;
-  height: 100vh;
+  //height: 100vh;
   flex-direction: row;
   padding-top: 64px;
-  border: 1px solid red;
+  //border: 1px solid red;
   @media screen and (max-width: 767px) {
     flex-direction: column;
   }
 `;
 export const ContentWrapper = styled.div`
-  border: 1px solid green;
+  //border: 1px solid green;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -26,7 +26,7 @@ export const ContentWrapper = styled.div`
   justify-content: center;
 `;
 export const Content = styled.div`
-  border: 1px solid darkviolet;
+  //border: 1px solid darkviolet;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,13 +36,16 @@ export const Content = styled.div`
   padding: 12px 16px 48px 32px;
 `;
 export const LogoImage = styled.img`
-  border: 1px solid blue;
-  //width: 40%;
-  width: 100px;
-  //padding: 32px 32px;
+  //border: 1px solid blue;
+  height: 40%;
+  width: 40%;
+  padding: 32px 32px;
   display: flex;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width: 767px) {
+    display: none;
+  }
 `;
 
 export const NextPageButton = styled.button`
@@ -70,8 +73,6 @@ export const NextPageButton = styled.button`
 export const ScrollPosition = styled.div`
   position: absolute;
   background-color: transparent;
-  width: 16px;
-  height: 16px;
-  bottom: 0px;
+  bottom: 0;
   left: 0;
 `;

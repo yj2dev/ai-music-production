@@ -8,6 +8,8 @@ export const Container = styled.div`
   flex-direction: column;
   transition: 0.2s;
   margin-top: 64px;
+  height: 100vh;
+  position: relative;
 `;
 export const RecordingButtonWrapper = styled.div`
   width: 72px;
@@ -106,7 +108,6 @@ export const Button = styled.button`
   //box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.3);
 
   margin-top: 24px;
-  //background-color: transparent;
   background-color: #ff0033;
   color: #ecd7b6;
   width: 400px;
@@ -130,4 +131,10 @@ export const Button = styled.button`
     position: relative;
     top: 2px;
   }
+`;
+export const ScrollPosition = styled.div`
+  position: absolute;
+  background-color: transparent;
+  bottom: 0;
+  left: 0;
 `;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { MediaRecorder, register } from "extendable-media-recorder";
 import { connect } from "extendable-media-recorder-wav-encoder";
 import { MMSSFormat } from "../../utils/Time";
@@ -9,6 +9,7 @@ import {
   OffIcon,
   RecordingButton,
   RecordingButtonWrapper,
+  ScrollPosition,
 } from "./styled";
 import { RiErrorWarningFill } from "react-icons/ri";
 import { MdKeyboardVoice } from "react-icons/md";
@@ -25,8 +26,11 @@ import {
 } from "../../slices/musicSlice";
 
 function VoiceRecord() {
+  const nextRef = useRef(null);
+  const nextPage = () => {
+    nextRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
   const dispatch = useDispatch();
-
   const genre = useSelector((state) => state.music.genre);
   const lyric = useSelector((state) => state.music.lyric);
   const midiData = useSelector((state) => state.music.midiData);
@@ -140,6 +144,7 @@ function VoiceRecord() {
         dispatch(setLyric(res.data.lyric));
         dispatch(setMidiData(res.data.base64_file));
         setMidiOnPlay(true);
+        nextPage();
       })
       .catch((err) => {
         console.error(err);
@@ -214,6 +219,7 @@ function VoiceRecord() {
           </span>
         </Button>
       )}
+      <ScrollPosition ref={nextRef} />
     </Container>
   );
 }

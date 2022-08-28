@@ -7,14 +7,12 @@ import {
   Content,
   ScrollPosition,
   Section,
-  LogoImageWrapper,
 } from "./styled";
 const logoPath = require("../../../../assets/img/Background/BacgroundIcon.png");
 function IntroductionSection() {
   const nextRef = useRef(null);
 
   const onClickNext = () => {
-    console.log("nextRef >> ", nextRef.current);
     nextRef.current?.scrollIntoView({ behavior: "smooth" });
   };
   return (
