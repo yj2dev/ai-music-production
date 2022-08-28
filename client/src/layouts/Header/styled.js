@@ -8,12 +8,13 @@ export const Container = styled.div`
   top: 0;
   width: 100%;
   z-index: 1000;
-  background-color: #fff;
+  background: linear-gradient(90deg, #ffffff, #fbf8f6);
   align-items: center;
   height: 64px;
   transition: 0.2s;
+
   &.active {
-    background-color: #000;
+    background: #000;
     color: #fff;
   }
 `;

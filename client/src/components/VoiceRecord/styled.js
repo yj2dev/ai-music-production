@@ -8,38 +8,6 @@ export const Container = styled.div`
   flex-direction: column;
   transition: 0.2s;
   margin-top: 64px;
-
-  &.active {
-    background-color: #fff;
-  }
-
-  & .content {
-    font-size: 24px;
-    color: #000;
-    margin-top: 36px;
-  }
-
-  & .content-lyric {
-    border: 4px solid #ec4820;
-    box-shadow: 4px 4px 5px 1px rgba(0, 0, 0, 0.3);
-    white-space: pre-wrap;
-    font-size: 18px;
-    height: 500px;
-    overflow: scroll;
-    color: #000;
-    text-align: center;
-    padding: 16px;
-    margin: 30px;
-    border-radius: 20px;
-    user-select: text;
-    line-height: 32px;
-  }
-
-  & .content span {
-    color: #ec4820;
-    font-weight: bold;
-    background-color: #ffffff;
-  }
 `;
 export const RecordingButtonWrapper = styled.div`
   width: 72px;

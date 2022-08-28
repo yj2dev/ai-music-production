@@ -8,10 +8,6 @@ export const Container = styled.div`
   flex-direction: column;
   transition: 0.2s;
 
-  &.active {
-    background-color: #fff;
-  }
-
   & .content {
     font-size: 24px;
     color: #000;

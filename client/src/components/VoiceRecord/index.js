@@ -149,7 +149,7 @@ function VoiceRecord() {
       });
   };
   return (
-    <Container className={onRecording && "active"}>
+    <Container>
       {!onRecording && (
         <div className="content">
           {!audioURL ? (
