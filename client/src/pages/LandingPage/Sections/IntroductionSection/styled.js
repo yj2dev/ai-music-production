@@ -9,6 +9,7 @@ export const Container = styled.div`
 
 export const Section = styled.div`
   display: flex;
+  height: 100vh;
   flex-direction: row;
   padding-top: 64px;
   border: 1px solid red;
@@ -17,6 +18,7 @@ export const Section = styled.div`
   }
 `;
 export const ContentWrapper = styled.div`
+  border: 1px solid green;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -24,6 +26,7 @@ export const ContentWrapper = styled.div`
   justify-content: center;
 `;
 export const Content = styled.div`
+  border: 1px solid darkviolet;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -33,10 +36,10 @@ export const Content = styled.div`
   padding: 12px 16px 48px 32px;
 `;
 export const LogoImage = styled.img`
-  flex: 1;
-  width: 30%;
-  //height: 30%;
-  padding: 32px 32px;
+  border: 1px solid blue;
+  //width: 40%;
+  width: 100px;
+  //padding: 32px 32px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -66,9 +69,9 @@ export const NextPageButton = styled.button`
 `;
 export const ScrollPosition = styled.div`
   position: absolute;
-  background-color: red;
+  background-color: transparent;
   width: 16px;
   height: 16px;
-  bottom: -16px;
+  bottom: 0px;
   left: 0;
 `;

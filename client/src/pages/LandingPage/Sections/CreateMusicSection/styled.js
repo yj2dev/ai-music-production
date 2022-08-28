@@ -7,6 +7,7 @@ export const Container = styled.div`
   align-items: center;
   flex-direction: column;
   transition: 0.2s;
+  height: 100vh;
 
   & .content {
     font-size: 24px;

@@ -7,6 +7,7 @@ import {
   Content,
   ScrollPosition,
   Section,
+  LogoImageWrapper,
 } from "./styled";
 const logoPath = require("../../../../assets/img/Background/BacgroundIcon.png");
 function IntroductionSection() {
