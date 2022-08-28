@@ -1,10 +1,10 @@
 import React from "react";
-import VoiceRecordingSection from "./Sections/VoiceRecordingSection";
+import CreateMusicSection from "./Sections/CreateMusicSection";
 
 const LandingPage = () => {
   return (
     <>
-      <VoiceRecordingSection />
+      <CreateMusicSection />
     </>
   );
 };

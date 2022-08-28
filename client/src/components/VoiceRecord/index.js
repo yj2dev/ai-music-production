@@ -1,30 +1,41 @@
-// https://stackoverflow.com/questions/65191193/media-recorder-save-in-wav-format-across-browsers
-import React, { useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { MediaRecorder, register } from "extendable-media-recorder";
 import { connect } from "extendable-media-recorder-wav-encoder";
-import MidiPlayer from "react-midi-player";
+import { MMSSFormat } from "../../utils/Time";
 import {
   Container,
-  RecordingButtonWrapper,
-  RecordingButton,
-  OffIcon,
   Audio,
   Button,
-  SectionLine,
+  OffIcon,
+  RecordingButton,
+  RecordingButtonWrapper,
 } from "./styled";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { MdKeyboardVoice } from "react-icons/md";
 import { RiErrorWarningFill } from "react-icons/ri";
-import { MMSSFormat } from "../../../../utils/Time";
+import { MdKeyboardVoice } from "react-icons/md";
+import axios from "axios";
 import PulseLoader from "react-spinners/PulseLoader";
-import { genreOfKR } from "../../../../utils/Translate";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setGenre,
+  delGenre,
+  setLyric,
+  delLyric,
+  setMidiData,
+  delMidiData,
+} from "../../slices/musicSlice";
 
-const VoiceRecordingSection = () => {
-  const REC_LIMIT_TIME = 120;
+function VoiceRecord() {
+  const dispatch = useDispatch();
+
+  const genre = useSelector((state) => state.music.genre);
+  const lyric = useSelector((state) => state.music.lyric);
+  const midiData = useSelector((state) => state.music.midiData);
+
   const [onRecording, setOnRecording] = useState(false);
   const [audioData, setAudioData] = useState("");
   const [audioURL, setAudioURL] = useState("");
+  const REC_LIMIT_TIME = 120;
+
   const [stream, setStream] = useState("");
   const [source, setSource] = useState("");
   const [analyser, setAnalyser] = useState("");
@@ -33,26 +44,20 @@ const VoiceRecordingSection = () => {
   const [timer, setTimer] = useState("00:00");
   const [loading, setLoading] = useState(false);
   const [showTip, setShowTip] = useState(false);
+  const [midiOnPlay, setMidiOnPlay] = useState(false);
 
-  const [genre, setGenre] = useState("");
-  const [lyric, setLyric] = useState("");
+  const resetResult = () => {
+    dispatch(delGenre());
+    dispatch(delLyric());
+    dispatch(delMidiData());
 
-  const [midiData, setMidiData] = useState("");
-
-  async function extendMediaRecoder() {
-    await register(await connect());
-  }
+    setMidiOnPlay(false);
+    setAudioURL("");
+  };
 
   useEffect(() => {
     extendMediaRecoder(); // ".wav" 확장자로 변환을 지원
   }, []);
-
-  const resetResult = () => {
-    setGenre("");
-    setLyric("");
-    setMidiData("");
-    setAudioURL("");
-  };
 
   const onClickOnRecording = async () => {
     resetResult();
@@ -106,37 +111,35 @@ const VoiceRecordingSection = () => {
       setAudioURL(URL.createObjectURL(e.data));
       setOnRecording(false);
     };
-
     stream.getAudioTracks().forEach((track) => {
       track.stop();
     });
-
     media.stop();
     analyser.disconnect();
     source.disconnect();
   };
 
+  async function extendMediaRecoder() {
+    await register(await connect());
+  }
+
   const onClickRequest = async () => {
     if (!audioData) return;
-
     const fd = new FormData();
     setLoading(true);
-
     fd.append("audio", audioData, `user_${+new Date()}.wav`);
 
-    console.log("audioData >> ", audioData);
-
     axios
-      .post("http://localhost:8000/api/music/create", fd, {
+      .post("/api/music/create", fd, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
       .then((res) => {
-        console.log("res >> ", res);
-        setMidiData(atob(res.data.base64_file));
-        setGenre(res.data.genre);
-        setLyric(res.data.lyric);
+        dispatch(setGenre(res.data.genre));
+        dispatch(setLyric(res.data.lyric));
+        dispatch(setMidiData(res.data.base64_file));
+        setMidiOnPlay(true);
       })
       .catch((err) => {
         console.error(err);
@@ -145,14 +148,6 @@ const VoiceRecordingSection = () => {
         setLoading(false);
       });
   };
-
-  // const onClickAudioDownload = () => {
-  //   const link = document.createElement("a");
-  //   link.href = window.URL.createObjectURL(audioData);
-  //   link.download = `user_${+new Date()}.wav`;
-  //   link.click();
-  // };
-
   return (
     <Container className={onRecording && "active"}>
       {!onRecording && (
@@ -202,22 +197,25 @@ const VoiceRecordingSection = () => {
           id={loading && "disabled"}
           disabled={loading}
         >
-          <span style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
-          {!loading ? "맞춤곡 생성" : "곡 생성중 "}&nbsp;
-          <PulseLoader color="#ffffff" size={10} margin={5} loading={loading} />
+          <span
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            {!loading ? "맞춤곡 생성" : "곡 생성중 "}&nbsp;
+            <PulseLoader
+              color="#ffffff"
+              size={10}
+              margin={5}
+              loading={loading}
+            />
           </span>
         </Button>
       )}
-      {genre && <SectionLine />}
-      {genre && (
-        <div className="content">
-          당신의 음성은 <span>{genreOfKR(genre)}</span>에 잘 어울립니다.
-        </div>
-      )}
-      {genre && <MidiPlayer data={midiData} />}
-      {lyric && <div className="content-lyric">{lyric}</div>}
     </Container>
   );
-};
+}
 
-export default VoiceRecordingSection;
+export default VoiceRecord;

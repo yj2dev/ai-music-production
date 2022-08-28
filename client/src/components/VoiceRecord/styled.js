@@ -163,10 +163,3 @@ export const Button = styled.button`
     top: 2px;
   }
 `;
-export const SectionLine = styled.div`
-  width: 100%;
-  background-color: #ffffff;
-  margin: 28px 0 0 0;
-  padding: 10px 0;
-  box-shadow: 0px 5px 2px 1px #eeeeee;
-`;
