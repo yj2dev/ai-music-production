@@ -35,16 +35,18 @@ export const Content = styled.div`
   justify-content: center;
   align-items: center;
   color: #696969;
-
   font-weight: 800;
   font-size: 4vw;
-  padding: 12px 16px 48px 32px;
+  padding: 12px 16px 84px 128px;
+  @media screen and (max-width: 767px) {
+    padding: 12px 12px 84px 12px;
+  }
 `;
 export const LogoImage = styled.img`
   //border: 1px solid blue;
   height: 40%;
   width: 40%;
-  padding: 32px 32px;
+  padding: 32px 128px 32px 32px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,6 +56,7 @@ export const LogoImage = styled.img`
     height: 400px;
     width: 400px;
     position: absolute;
+    padding: 32px;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);

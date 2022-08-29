@@ -5,7 +5,7 @@ import {
   MidiWrapper,
   ResultGenre,
   ResultLyric,
-  SectionLine,
+  Button,
 } from "./styled";
 import { useSelector } from "react-redux";
 import { genreOfKR } from "../../../../utils/Translate";
@@ -33,6 +33,13 @@ function ResultMusicSection() {
       )}
       {/*작사 결과입니다.*/}
       {lyric && <ResultLyric>{lyric}</ResultLyric>}
+      <Button
+        onClick={() => {
+          window.location.reload("/");
+        }}
+      >
+        다시하기
+      </Button>
     </Container>
   );
 }

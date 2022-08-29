@@ -6,6 +6,10 @@ export const Container = styled.div`
   transition: 0.2s;
   background: linear-gradient(90deg, #ffffff, #fbf8f6);
   margin-top: 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 export const ResultGenre = styled.div`
   text-align: center;
@@ -47,4 +51,31 @@ export const MidiWrapper = styled.div`
   background-color: #888888;
   border-radius: 50px;
   box-shadow: 4px 4px 5px 1px rgba(0, 0, 0, 0.3);
+`;
+export const Button = styled.button`
+  box-shadow: 4px 4px 5px 1px rgba(0, 0, 0, 0.3);
+  //margin-top: 24px;
+  background-color: #00a0cb;
+  color: #fff0d6;
+  width: 400px;
+  height: 54px;
+  border: none;
+  outline: none;
+  border-radius: 50px;
+  transition-duration: 0.2s;
+  font-size: 24px;
+  font-weight: 800;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    color: #ffffff;
+  }
+
+  &:active {
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.3);
+    position: relative;
+    top: 2px;
+  }
 `;

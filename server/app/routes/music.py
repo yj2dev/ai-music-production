@@ -1,6 +1,6 @@
 from app.utils.determine_music_genre import determine_genre
 from app.utils.write_lyrics import write_lyrics
-from app.utils.composition import composition
+from app.utils.composition.composition import composition
 from fastapi import APIRouter, UploadFile
 from base64 import b64encode
 import shutil
@@ -31,9 +31,9 @@ async def create_music(audio: UploadFile):
 
 ### [작곡]
     section4_start = time.time()
-    com_path = composition(genre)
-    if not com_path: return { 'success': False }
-    with open(com_path, mode="rb") as file_like:
+    composition_path = composition(genre)
+    if not composition_path: return { 'success': False }
+    with open(composition_path, mode="rb") as file_like:
         file_content = b64encode(file_like.read())
     base64_file = file_content.decode('utf-8')
     section4_time = time.time() - section4_start
