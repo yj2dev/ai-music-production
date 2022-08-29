@@ -10,6 +10,14 @@ export const Container = styled.div`
   margin-top: 64px;
   height: 100vh;
   position: relative;
+  & .content {
+    font-weight: 800;
+    color: #696969;
+    padding: 0 0 32px 0;
+  }
+  & .content span {
+    color: #00a0cb;
+  }
 `;
 export const RecordingButtonWrapper = styled.div`
   width: 72px;

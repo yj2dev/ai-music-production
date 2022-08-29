@@ -3,6 +3,9 @@ import styled from "styled-components";
 export const Container = styled.div`
   position: relative;
   height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   transition: 0.2s;
   background: linear-gradient(90deg, #ffffff, #fbf8f6);
 `;
@@ -28,9 +31,11 @@ export const ContentWrapper = styled.div`
 export const Content = styled.div`
   //border: 1px solid darkviolet;
   display: flex;
+  z-index: 100;
   justify-content: center;
   align-items: center;
   color: #696969;
+
   font-weight: 800;
   font-size: 4vw;
   padding: 12px 16px 48px 32px;
@@ -43,12 +48,20 @@ export const LogoImage = styled.img`
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: 0.2s;
   @media screen and (max-width: 767px) {
-    display: none;
+    opacity: 0.5;
+    height: 400px;
+    width: 400px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
 `;
 
 export const NextPageButton = styled.button`
+  z-index: 100;
   box-shadow: 4px 4px 5px 1px rgba(0, 0, 0, 0.3);
   border-radius: 20px;
   background-color: #fcfaf5;

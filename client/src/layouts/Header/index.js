@@ -14,7 +14,7 @@ const Header = () => {
 
   return (
     <Container className={scrollPosition > 0 && "active"}>
-      <Logo onClick={() => navigate("/")}>
+      <Logo onClick={() => window.location.replace("/")}>
         <img
           src="img/logo_fw.png"
           className={scrollPosition == 0 && "deactive"}

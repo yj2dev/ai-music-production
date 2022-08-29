@@ -51,6 +51,7 @@ function VoiceRecord() {
   const [midiOnPlay, setMidiOnPlay] = useState(false);
 
   const resetResult = () => {
+    // window.location.replace("/");
     dispatch(delGenre());
     dispatch(delLyric());
     dispatch(delMidiData());
@@ -153,12 +154,13 @@ function VoiceRecord() {
         setLoading(false);
       });
   };
+
   return (
     <Container>
       {!onRecording && (
         <div className="content">
           {!audioURL ? (
-            <>"버튼을 클릭하여 녹음을 시작합니다"</>
+            <>"마이크 버튼을 클릭해 녹음을 시작합니다"</>
           ) : (
             <>
               "녹음된 음성을 <span>확인</span> 후 곡을 생성해주세요!"
@@ -166,35 +168,37 @@ function VoiceRecord() {
           )}
         </div>
       )}
-      <RecordingButtonWrapper
-        className={onRecording && "active"}
-        onClick={!onRecording ? onClickOnRecording : onClickOffRecording}
-      >
-        {onRecording && <div className="timer">{timer}</div>}
-        {onRecording && (
-          <div
-            className="tip-icon"
-            onMouseEnter={() => setShowTip(true)}
-            onMouseLeave={() => setShowTip(false)}
-          >
-            <RiErrorWarningFill />
-          </div>
-        )}
-        {onRecording && showTip && (
-          <div className="tip-modal">최대 2분까지 녹음할 수 있습니다.</div>
-        )}
-        <RecordingButton>
-          {!onRecording ? (
-            <>
-              <MdKeyboardVoice />
-            </>
-          ) : (
-            <>
-              <OffIcon />
-            </>
+      {!genre && !loading && (
+        <RecordingButtonWrapper
+          className={onRecording && "active"}
+          onClick={!onRecording ? onClickOnRecording : onClickOffRecording}
+        >
+          {onRecording && <div className="timer">{timer}</div>}
+          {onRecording && (
+            <div
+              className="tip-icon"
+              onMouseEnter={() => setShowTip(true)}
+              onMouseLeave={() => setShowTip(false)}
+            >
+              <RiErrorWarningFill />
+            </div>
           )}
-        </RecordingButton>
-      </RecordingButtonWrapper>
+          {onRecording && showTip && (
+            <div className="tip-modal">최대 2분까지 녹음할 수 있습니다.</div>
+          )}
+          <RecordingButton>
+            {!onRecording ? (
+              <>
+                <MdKeyboardVoice />
+              </>
+            ) : (
+              <>
+                <OffIcon />
+              </>
+            )}
+          </RecordingButton>
+        </RecordingButtonWrapper>
+      )}
       {audioURL && <Audio controls src={audioURL} controlsList="nodownload" />}
       {audioURL && !genre && (
         <Button
@@ -219,6 +223,7 @@ function VoiceRecord() {
           </span>
         </Button>
       )}
+      {genre && <Button onClick={nextPage}>결과확인</Button>}
       <ScrollPosition ref={nextRef} />
     </Container>
   );
