@@ -136,6 +136,7 @@ export const Button = styled.button`
 
   &:active {
     box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.3);
+
     position: relative;
     top: 2px;
   }
@@ -146,8 +147,12 @@ export const GenreButtonWrapper = styled.div`
 export const GenreButton = styled.button`
   margin: 0 10px;
   box-shadow: 4px 4px 5px 1px rgba(0, 0, 0, 0.3);
-  background-color: #ff0033;
-  color: #ecd7b6;
+  color: #696969;
+  //border: 2px solid #696969;
+  //background-color: #ff0033;
+  background-color: rgba(0, 0, 0, 20%);
+
+  //color: #ecd7b6;
   width: 190px;
   height: 54px;
   border: none;
@@ -164,7 +169,15 @@ export const GenreButton = styled.button`
   }
   &:active {
     box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.3);
+    background-color: #ff0033;
     position: relative;
+    top: 2px;
+  }
+  &.active {
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.3);
+    background-color: #ff0033;
+    position: relative;
+    color: #fff;
     top: 2px;
   }
 `;
@@ -173,4 +186,62 @@ export const ScrollPosition = styled.div`
   background-color: transparent;
   bottom: 0;
   left: 0;
+`;
+export const AIGenreLabelWrapper = styled.label`
+  display: flex;
+  width: 400px;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 32px;
+  .lb_title {
+    cursor: pointer;
+    font-weight: 800;
+    color: #696969;
+    font-size: 18px;
+  }
+`;
+export const AIGenreLabel = styled.label`
+  width: 72px;
+  height: 40px;
+  font-size: 18px;
+  font-weight: 800;
+  color: #696969;
+  background-color: transparent;
+  position: relative;
+  display: inline-block;
+  border-radius: 100px;
+
+  & input[type="checkbox"] {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  & .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #dddddd;
+    border-radius: 100px;
+  }
+
+  & .slider:before {
+    position: absolute;
+    content: "";
+    height: 32px;
+    width: 32px;
+    left: 4px;
+    top: 4px;
+    border-radius: 100px;
+    transition: 0.4s;
+    background-color: #ffffff;
+  }
+  & input:checked + .slider {
+    background-color: #6edc5f;
+  }
+  & input:checked + .slider:before {
+    transform: translateX(32px);
+  }
 `;

@@ -12,6 +12,8 @@ import {
   ScrollPosition,
   GenreButton,
   GenreButtonWrapper,
+  AIGenreLabel,
+  AIGenreLabelWrapper,
 } from "./styled";
 import { RiErrorWarningFill } from "react-icons/ri";
 import { MdKeyboardVoice } from "react-icons/md";
@@ -26,6 +28,7 @@ import {
   setMidiData,
   delMidiData,
 } from "../../slices/musicSlice";
+import UserSetGenre from "../UserSetGenre";
 
 function VoiceRecord() {
   const nextRef = useRef(null);
@@ -50,15 +53,14 @@ function VoiceRecord() {
   const [timer, setTimer] = useState("00:00");
   const [loading, setLoading] = useState(false);
   const [showTip, setShowTip] = useState(false);
-  const [midiOnPlay, setMidiOnPlay] = useState(false);
+
+  const [useDetermine, setUseDetermine] = useState(true);
 
   const resetResult = () => {
-    // window.location.replace("/");
     dispatch(delGenre());
     dispatch(delLyric());
     dispatch(delMidiData());
 
-    setMidiOnPlay(false);
     setAudioURL("");
   };
 
@@ -146,7 +148,6 @@ function VoiceRecord() {
         dispatch(setGenre(res.data.genre));
         dispatch(setLyric(res.data.lyric));
         dispatch(setMidiData(res.data.base64_file));
-        setMidiOnPlay(true);
         nextPage();
       })
       .catch((err) => {
@@ -156,25 +157,9 @@ function VoiceRecord() {
         setLoading(false);
       });
   };
-
-  const onClickGenre = (e) => {
-    const selectedGenre = e.target.value;
-    setLoading(true);
-    axios
-      .get(`/api/music/create/${selectedGenre}`)
-      .then((res) => {
-        dispatch(setGenre(res.data.genre));
-        dispatch(setLyric(res.data.lyric));
-        dispatch(setMidiData(res.data.base64_file));
-        setMidiOnPlay(true);
-        nextPage();
-      })
-      .catch((err) => {
-        console.error(err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+  const onToggleSelectedGenre = (e) => {
+    console.log();
+    setUseDetermine(e.target.checked);
   };
   return (
     <Container>
@@ -195,7 +180,7 @@ function VoiceRecord() {
           )}
         </div>
       )}
-      {!genre && !loading && (
+      {useDetermine && !genre && !loading && (
         <RecordingButtonWrapper
           className={onRecording && "active"}
           onClick={!onRecording ? onClickOnRecording : onClickOffRecording}
@@ -227,6 +212,8 @@ function VoiceRecord() {
         </RecordingButtonWrapper>
       )}
       {audioURL && <Audio controls src={audioURL} controlsList="nodownload" />}
+
+      {!useDetermine && !genre && !loading && <UserSetGenre />}
       {audioURL && !genre && (
         <Button
           onClick={onClickRequest}
@@ -250,25 +237,21 @@ function VoiceRecord() {
           </span>
         </Button>
       )}
-      {!genre && !loading && (
-        <>
-          <GenreButtonWrapper>
-            <GenreButton onClick={onClickGenre} value="ballad">
-              발라드
-            </GenreButton>
-            <GenreButton onClick={onClickGenre} value="trot">
-              트로트
-            </GenreButton>
-          </GenreButtonWrapper>
-          <GenreButtonWrapper>
-            <GenreButton onClick={onClickGenre} value="dance">
-              댄스
-            </GenreButton>
-            <GenreButton onClick={onClickGenre} value="dance">
-              힙합
-            </GenreButton>
-          </GenreButtonWrapper>
-        </>
+      {!audioURL && !onRecording && (
+        <AIGenreLabelWrapper>
+          <label className="lb_title" htmlFor="useDetermine">
+            인공지능 목소리 장르분석
+          </label>
+          <AIGenreLabel>
+            <input
+              onChange={onToggleSelectedGenre}
+              id="useDetermine"
+              type="checkbox"
+              defaultChecked={true}
+            />
+            <span className="slider"></span>
+          </AIGenreLabel>
+        </AIGenreLabelWrapper>
       )}
       {genre && <Button onClick={nextPage}>결과확인</Button>}
       <ScrollPosition ref={nextRef} />
