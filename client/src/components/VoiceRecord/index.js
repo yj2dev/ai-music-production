@@ -10,8 +10,6 @@ import {
   RecordingButton,
   RecordingButtonWrapper,
   ScrollPosition,
-  GenreButton,
-  GenreButtonWrapper,
   AIGenreLabel,
   AIGenreLabelWrapper,
 } from "./styled";
@@ -163,23 +161,23 @@ function VoiceRecord() {
   };
   return (
     <Container>
-      {!onRecording && (
-        <div className="content">
-          {!audioURL ? (
-            <>"마이크 버튼을 클릭해 녹음을 시작합니다"</>
-          ) : (
-            <>
-              {!genre ? (
-                <>
-                  "녹음된 음성을 <span>확인</span> 후 곡을 생성해주세요!"
-                </>
-              ) : (
-                <>"분석결과를 확인해 주세요."</>
-              )}
-            </>
-          )}
-        </div>
-      )}
+      <div className="content">
+        {useDetermine &&
+          !genre &&
+          !audioURL &&
+          !onRecording &&
+          "마이크 버튼을 클릭해 녹음을 시작합니다"}
+        {!useDetermine &&
+          !genre &&
+          !onRecording &&
+          "원하는 장르를 선택해 주세요"}
+        {useDetermine && !genre && audioURL && !onRecording && (
+          <>
+            "녹음된 음성을 <span>확인</span> 후 곡을 생성해주세요!"
+          </>
+        )}
+        {genre && "분석결과를 확인해주세요"}
+      </div>
       {useDetermine && !genre && !loading && (
         <RecordingButtonWrapper
           className={onRecording && "active"}
@@ -211,10 +209,12 @@ function VoiceRecord() {
           </RecordingButton>
         </RecordingButtonWrapper>
       )}
-      {audioURL && <Audio controls src={audioURL} controlsList="nodownload" />}
+      {audioURL && useDetermine && (
+        <Audio controls src={audioURL} controlsList="nodownload" />
+      )}
 
       {!useDetermine && !genre && !loading && <UserSetGenre />}
-      {audioURL && !genre && (
+      {useDetermine && audioURL && !genre && (
         <Button
           onClick={onClickRequest}
           id={loading && "disabled"}
@@ -237,7 +237,7 @@ function VoiceRecord() {
           </span>
         </Button>
       )}
-      {!audioURL && !onRecording && (
+      {!onRecording && !genre && !loading && (
         <AIGenreLabelWrapper>
           <label className="lb_title" htmlFor="useDetermine">
             인공지능 목소리 장르분석

@@ -2,7 +2,7 @@ from transformers import BertTokenizerFast, GPT2LMHeadModel
 import torch
 import re
 
-def write_lyrics(genre):
+def write_lyrics(genre, keyword=None):
     path = "app/model/write_lyrics_model"
 
     # 모델 불러오기
@@ -43,5 +43,6 @@ def write_lyrics(genre):
             gen = gen[(idx + 2)::]
             return gen
 
-    prompt = f"<{genre}>"
+    prompt = f"<{genre}> {keyword}"
+    print(prompt)
     return model_test(prompt)

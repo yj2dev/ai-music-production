@@ -8,15 +8,13 @@ import time
 router = APIRouter(prefix="/api/music")
 
 @router.get("/create/{genre}")
-async def create_music(genre: str):
-    print("genre >> ", genre)
-    # return {None, genre}
+async def create_music(genre=None, keyword=None):
     total_start = time.time()
-    print('[LOG] 선택된 장르 (',genre,')')
+    print('[LOG] 선택된 장르 또는 키워드 (',genre, keyword, ')')
 
 ### [작사]
     section3_start = time.time()
-    lyric = write_lyrics(genre)
+    lyric = write_lyrics(genre, keyword)
     print('[LOG] 작사 완료 (',lyric[0:13],'...)')
     section3_time = time.time() - section3_start
 

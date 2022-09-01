@@ -5,7 +5,7 @@ export const Container = styled.div`
   height: 100vh;
   transition: 0.2s;
   background: linear-gradient(90deg, #ffffff, #fbf8f6);
-  margin-top: 64px;
+  margin-top: 48px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,7 +15,7 @@ export const ResultGenre = styled.div`
   text-align: center;
   font-size: 24px;
   color: #000;
-  padding: 36px 0;
+  padding: 0 0 36px 0;
   & span {
     color: #ec4820;
     font-weight: bold;
@@ -54,7 +54,6 @@ export const MidiWrapper = styled.div`
 `;
 export const Button = styled.button`
   box-shadow: 4px 4px 5px 1px rgba(0, 0, 0, 0.3);
-  //margin-top: 24px;
   background-color: #00a0cb;
   color: #fff0d6;
   width: 400px;
