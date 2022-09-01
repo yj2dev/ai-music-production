@@ -10,6 +10,8 @@ import {
   RecordingButton,
   RecordingButtonWrapper,
   ScrollPosition,
+  GenreButton,
+  GenreButtonWrapper,
 } from "./styled";
 import { RiErrorWarningFill } from "react-icons/ri";
 import { MdKeyboardVoice } from "react-icons/md";
@@ -155,6 +157,25 @@ function VoiceRecord() {
       });
   };
 
+  const onClickGenre = (e) => {
+    const selectedGenre = e.target.value;
+    setLoading(true);
+    axios
+      .get(`/api/music/create/${selectedGenre}`)
+      .then((res) => {
+        dispatch(setGenre(res.data.genre));
+        dispatch(setLyric(res.data.lyric));
+        dispatch(setMidiData(res.data.base64_file));
+        setMidiOnPlay(true);
+        nextPage();
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
   return (
     <Container>
       {!onRecording && (
@@ -228,6 +249,26 @@ function VoiceRecord() {
             />
           </span>
         </Button>
+      )}
+      {!genre && !loading && (
+        <>
+          <GenreButtonWrapper>
+            <GenreButton onClick={onClickGenre} value="ballad">
+              발라드
+            </GenreButton>
+            <GenreButton onClick={onClickGenre} value="trot">
+              트로트
+            </GenreButton>
+          </GenreButtonWrapper>
+          <GenreButtonWrapper>
+            <GenreButton onClick={onClickGenre} value="dance">
+              댄스
+            </GenreButton>
+            <GenreButton onClick={onClickGenre} value="dance">
+              힙합
+            </GenreButton>
+          </GenreButtonWrapper>
+        </>
       )}
       {genre && <Button onClick={nextPage}>결과확인</Button>}
       <ScrollPosition ref={nextRef} />
