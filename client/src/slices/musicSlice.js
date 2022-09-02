@@ -1,6 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  loading: false,
+  isCustom: false,
+  isRecord: false,
+  recordData: "",
+  recordURL: "",
   genre: "",
   lyric: "",
   midiData: "",
@@ -10,6 +15,36 @@ export const musicSlice = createSlice({
   name: "music",
   initialState,
   reducers: {
+    onLoading: (state) => {
+      state.loading = true;
+    },
+    offLoading: (state) => {
+      state.loading = false;
+    },
+    onRecord: (state) => {
+      state.isRecord = true;
+    },
+    offRecord: (state) => {
+      state.isRecord = false;
+    },
+    onCustom: (state) => {
+      state.isCustom = true;
+    },
+    offCustom: (state) => {
+      state.isCustom = false;
+    },
+    setRecordData: (state, action) => {
+      state.recordData = action.payload;
+    },
+    delRecordData: (state) => {
+      state.recordData = "";
+    },
+    setRecordURL: (state, action) => {
+      state.recordURL = action.payload;
+    },
+    delRecordURL: (state) => {
+      state.recordURL = "";
+    },
     setGenre: (state, action) => {
       state.genre = action.payload;
     },
@@ -32,6 +67,16 @@ export const musicSlice = createSlice({
 });
 
 export const {
+  onLoading,
+  offLoading,
+  onCustom,
+  offCustom,
+  onRecord,
+  offRecord,
+  setRecordData,
+  delRecordData,
+  setRecordURL,
+  delRecordURL,
   setGenre,
   delGenre,
   setLyric,

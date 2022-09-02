@@ -12,7 +12,6 @@ export const Container = styled.div`
 
 export const Section = styled.div`
   display: flex;
-  //height: 100vh;
   flex-direction: row;
   padding-top: 64px;
   //border: 1px solid red;
@@ -37,24 +36,28 @@ export const Content = styled.div`
   color: #696969;
   font-weight: 800;
   font-size: 4vw;
-  padding: 12px 16px 84px 128px;
+  //padding: 12px 16px 84px 128px;
+  padding-left: 10%;
+  padding-right: 5%;
+  padding-bottom: 10%;
   @media screen and (max-width: 767px) {
-    padding: 12px 12px 84px 12px;
   }
 `;
 export const LogoImage = styled.img`
   //border: 1px solid blue;
-  height: 40%;
-  width: 40%;
-  padding: 32px 128px 32px 32px;
+  height: 28%;
+  width: 28%;
+  //padding: 32px 128px 32px 32px;
+  padding-right: 5%;
+
   display: flex;
   justify-content: center;
   align-items: center;
   transition: 0.2s;
   @media screen and (max-width: 767px) {
     opacity: 0.5;
-    height: 400px;
-    width: 400px;
+    height: 360px;
+    width: 360px;
     position: absolute;
     padding: 32px;
     left: 50%;
@@ -69,7 +72,7 @@ export const NextPageButton = styled.button`
   border-radius: 20px;
   background-color: #fcfaf5;
   color: #767676;
-  width: 300px;
+  width: 280px;
   height: 54px;
   border: none;
   outline: none;

@@ -44,5 +44,4 @@ def write_lyrics(genre, keyword=None):
             return gen
 
     prompt = f"<{genre}> {keyword}"
-    print(prompt)
     return model_test(prompt)

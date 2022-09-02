@@ -1,5 +1,8 @@
 import styled from "styled-components";
 
+export const Container = styled.div`
+  background-color: orangered;
+`;
 export const InputWrapper = styled.div`
   & input[type="text"] {
     margin-top: 48px;
@@ -54,10 +57,4 @@ export const GenreButton = styled.button`
     color: #fff;
     top: 2px;
   }
-`;
-export const ScrollPosition = styled.div`
-  position: absolute;
-  background-color: transparent;
-  bottom: 0;
-  left: 0;
 `;

@@ -1,11 +1,11 @@
 import React from "react";
 import { Container } from "./styled";
-import VoiceRecord from "../../../../components/VoiceRecord";
+import CreateMusic from "../../../../components/CreateMusic";
 
 const CreateMusicSection = () => {
   return (
     <Container>
-      <VoiceRecord />
+      <CreateMusic />
     </Container>
   );
 };

@@ -1,26 +1,27 @@
 import axios from "axios";
-import { setGenre, setLyric, setMidiData } from "../../slices/musicSlice";
-import { Button } from "../VoiceRecord/styled";
 import {
+  offLoading,
+  onLoading,
+  setGenre,
+  setLyric,
+  setMidiData,
+} from "../../slices/musicSlice";
+import { Button } from "../CreateMusic/styled";
+import {
+  Container,
   InputWrapper,
   GenreButton,
   GenreButtonWrapper,
-  ScrollPosition,
 } from "./styled";
 import React, { useRef, useState } from "react";
 import PulseLoader from "react-spinners/PulseLoader";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-function UserSetGenre() {
-  const nextRef = useRef(null);
+function UserSetGenre({ nextPage }) {
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
+  const loading = useSelector((state) => state.music.loading);
   const [selectedGenre, setSelectedGenre] = useState("ballad");
   const [keyword, setKeyword] = useState("");
-
-  const nextPage = () => {
-    nextRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
 
   const onClickGenre = (e) => {
     setSelectedGenre(e.target.value);
@@ -33,7 +34,8 @@ function UserSetGenre() {
 
   const onSubmitSeletedGenre = () => {
     if (selectedGenre === "") return;
-    setLoading(true);
+    dispatch(onLoading());
+
     axios
       .get(`/api/music/create/${selectedGenre}?keyword=${keyword}`)
       .then((res) => {
@@ -46,11 +48,11 @@ function UserSetGenre() {
         console.error(err);
       })
       .finally(() => {
-        setLoading(false);
+        dispatch(offLoading());
       });
   };
   return (
-    <>
+    <Container>
       <GenreButtonWrapper>
         <GenreButton
           onClick={onClickGenre}
@@ -107,8 +109,7 @@ function UserSetGenre() {
           <PulseLoader color="#ffffff" size={10} margin={5} loading={loading} />
         </span>
       </Button>
-      <ScrollPosition ref={nextRef} />
-    </>
+    </Container>
   );
 }
 
