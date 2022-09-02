@@ -5,16 +5,12 @@ import App from "./App";
 import { Provider } from "react-redux";
 import { store } from "./store";
 import axios from "axios";
-// import dotenv from "dotenv";
-// dotenv.config();
 
 axios.defaults.withCredentials = true;
-// axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
-console.log(
-  "process.env.REACT_APP_BASE_URL >> ",
-  process.env.REACT_APP_BASE_URL
-);
-axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
+axios.defaults.baseURL =
+  process.env.NODE_ENV === "production"
+    ? process.env.REACT_APP_BASE_URL
+    : "http://localhost:8709";
 
 ReactDOM.render(
   <React.StrictMode>

@@ -26,9 +26,13 @@ def create_app():
 
     return app
 
-
-
 app = create_app()
 
 if __name__ == '__main__':
-    uvicorn.run(app, host="127.0.0.1", port=8709)
+    uvicorn.run("main:app",
+                host="0.0.0.0",
+                port=8709,
+                ssl_keyfile="./key.pem",
+                ssl_certfile="./cert.pem"
+                )
+
