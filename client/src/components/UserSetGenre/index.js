@@ -52,7 +52,7 @@ function UserSetGenre({ nextPage }) {
       });
   };
   return (
-    <Container>
+    <>
       <GenreButtonWrapper>
         <GenreButton
           onClick={onClickGenre}
@@ -109,7 +109,7 @@ function UserSetGenre({ nextPage }) {
           <PulseLoader color="#ffffff" size={10} margin={5} loading={loading} />
         </span>
       </Button>
-    </Container>
+    </>
   );
 }
 

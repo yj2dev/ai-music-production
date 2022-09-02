@@ -1,8 +1,5 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-  background-color: orangered;
-`;
 export const InputWrapper = styled.div`
   & input[type="text"] {
     margin-top: 48px;
