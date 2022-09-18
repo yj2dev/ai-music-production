@@ -11,7 +11,8 @@ axios.defaults.withCredentials = true;
 axios.defaults.baseURL =
   process.env.NODE_ENV === "production"
     ? process.env.REACT_APP_BASE_URL
-    : "https://localhost:8709";
+    : "http://localhost:8000";
+    // : "http://localhost:8709";
 
 console.log("axios.defaults.baseURL >> ", axios.defaults.baseURL);
 ReactDOM.render(

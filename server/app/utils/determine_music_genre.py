@@ -5,7 +5,7 @@ import librosa
 
 ### 초기 설정
 INPUT_PATH = "app/data/input_audio"    # 입력음성이 들어갈 폴더 경로 지정
-MUSIC_PROP = "app/data/determine_genre_prop/extract_music_prop_0727_70.csv"    # 추출된 음악속성 CSV 경로 지정
+MUSIC_PROP = "app/data/determine_genre_prop/extract_music_prop_0918_50.csv"    # 추출된 음악속성 CSV 경로 지정
 
 def determine_genre(filename = None):
     ### 속성 추출 함수
@@ -94,6 +94,6 @@ def determine_genre(filename = None):
         else: genre_score[genre] = score
 
     max_genre = max(genre_score, key=genre_score.get)
-#     print("[선별된 장르목록]\n", similar_songs)
-#     print("[추천 장르] ", max_genre)
+    print("[선별된 장르목록]\n", similar_songs)
+    print("[추천 장르] ", max_genre)
     return max_genre
