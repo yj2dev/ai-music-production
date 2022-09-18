@@ -21,9 +21,11 @@ import {
   offCustom,
   onLoading,
   offLoading,
+  setGenreList,
 } from "../../slices/musicSlice";
 import UserSetGenre from "../UserSetGenre";
 import VoiceRecord from "../VoiceRecord";
+import GenreListParsing from "../../utils/GenreListParsing";
 
 function CreateMusic() {
   const nextRef = useRef(null);
@@ -51,9 +53,16 @@ function CreateMusic() {
         },
       })
       .then((res) => {
+        console.log("res data >> ", res.data);
+
         dispatch(setGenre(res.data.genre));
         dispatch(setLyric(res.data.lyric));
         dispatch(setMidiData(res.data.base64_file));
+
+        if (res.data.hasOwnProperty("genre_list")) {
+          dispatch(setGenreList(GenreListParsing(res.data.genre_list)));
+        }
+
         nextPage();
       })
       .catch((err) => {

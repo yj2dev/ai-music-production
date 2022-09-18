@@ -60,7 +60,7 @@ def determine_genre(filename = None):
         return audio_info\
 
     ### 입력받은 목소리 속성 추출 후 원본 데이터프레임에 추가
-    df = pd.read_csv(MUSIC_PROP, index_col='filename')
+    df = pd.read_csv(MUSIC_PROP, index_col='filename', encoding='cp949')
     audio_info = extract_music_prop(filename)
     audio_info.pop(0)
     df.loc[filename] = audio_info
@@ -96,4 +96,4 @@ def determine_genre(filename = None):
     max_genre = max(genre_score, key=genre_score.get)
     print("[선별된 장르목록]\n", similar_songs)
     print("[추천 장르] ", max_genre)
-    return max_genre
+    return max_genre, similar_songs

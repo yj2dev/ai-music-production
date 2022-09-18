@@ -7,6 +7,7 @@ const initialState = {
   recordData: "",
   recordURL: "",
   genre: "",
+  genreList: [],
   lyric: "",
   midiData: "",
 };
@@ -51,6 +52,12 @@ export const musicSlice = createSlice({
     delGenre: (state) => {
       state.genre = "";
     },
+    setGenreList: (state, action) => {
+      state.genreList = action.payload;
+    },
+    delGenreList: (state) => {
+      state.genreList = [];
+    },
     setLyric: (state, action) => {
       state.lyric = action.payload;
     },
@@ -83,6 +90,8 @@ export const {
   delLyric,
   setMidiData,
   delMidiData,
+  setGenreList,
+  delGenreList,
 } = musicSlice.actions;
 
 export default musicSlice.reducer;
