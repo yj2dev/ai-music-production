@@ -75,7 +75,7 @@ def determine_genre(filename = None):
     sim_df.head()
 
     ### 입력받은 음성과 유사한 곡 추천
-    def find_similar_songs(name, n = 16):
+    def find_similar_songs(name, n = 50):
         try:
             series = sim_df[name].sort_values(ascending=False)
         except:
@@ -94,6 +94,7 @@ def determine_genre(filename = None):
         else: genre_score[genre] = score
 
     max_genre = max(genre_score, key=genre_score.get)
+    print('[장르별 점수] ', genre_score)
     print("[선별된 장르목록]\n", similar_songs)
     print("[추천 장르] ", max_genre)
-    return max_genre, similar_songs
+    return max_genre, genre_score, similar_songs

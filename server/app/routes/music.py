@@ -52,7 +52,7 @@ async def create_music(audio: UploadFile):
 
 ### [장르 판별]
     section2_start = time.time()
-    genre, genre_list = determine_genre(audio.filename)
+    genre, genre_score, genre_list = determine_genre(audio.filename)
     print('[LOG] 장르 판별 완료 (',genre,')')
     section2_time = time.time() - section2_start
 
@@ -82,6 +82,7 @@ async def create_music(audio: UploadFile):
         "success": True,
         'base64_file': base64_file,
         "genre": genre,
+        "genre_score": genre_score,
         "genre_list": genre_list,
         "lyric": lyric
         }

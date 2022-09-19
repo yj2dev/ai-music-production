@@ -22,6 +22,7 @@ import {
   onLoading,
   offLoading,
   setGenreList,
+  setGenreScore,
 } from "../../slices/musicSlice";
 import UserSetGenre from "../UserSetGenre";
 import VoiceRecord from "../VoiceRecord";
@@ -59,7 +60,9 @@ function CreateMusic() {
         dispatch(setLyric(res.data.lyric));
         dispatch(setMidiData(res.data.base64_file));
 
+        // 장르 목록이 있으면 목록과 점수 저장
         if (res.data.hasOwnProperty("genre_list")) {
+          dispatch(setGenreScore(res.data.genre_score));
           dispatch(setGenreList(GenreListParsing(res.data.genre_list)));
         }
 

@@ -6,7 +6,6 @@ function GenreListParsing(list) {
   const _list = list[fileName];
 
   Object.keys(_list).forEach((key) => {
-    console.log("Keys >> ", key, _list[key]);
     const keySplitDot = key.split(".");
     keySplitDot.pop(); // 확장명 제거
     const genre = genreOfKR(keySplitDot[0]);

@@ -15,7 +15,7 @@ export const ResultGenre = styled.div`
   text-align: center;
   font-size: 24px;
   color: #000;
-  padding: 0 0 36px 0;
+  padding: 0 0 12px 0;
   & span {
     color: #ec4820;
     font-weight: bold;
@@ -41,6 +41,12 @@ export const MidiBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+export const ShowChartButton = styled.div`
+  color: #666666;
+  font-weight: 800;
+  cursor: pointer;
+  padding-bottom: 16px;
 `;
 export const MidiWrapper = styled.div`
   width: 400px;

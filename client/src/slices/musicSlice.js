@@ -7,6 +7,7 @@ const initialState = {
   recordData: "",
   recordURL: "",
   genre: "",
+  genreScore: {},
   genreList: [],
   lyric: "",
   midiData: "",
@@ -52,6 +53,12 @@ export const musicSlice = createSlice({
     delGenre: (state) => {
       state.genre = "";
     },
+    setGenreScore: (state, action) => {
+      state.genreScore = action.payload;
+    },
+    delGenreScore: (state) => {
+      state.genreScore = "";
+    },
     setGenreList: (state, action) => {
       state.genreList = action.payload;
     },
@@ -86,12 +93,14 @@ export const {
   delRecordURL,
   setGenre,
   delGenre,
+  setGenreScore,
+  delGenreScore,
+  setGenreList,
+  delGenreList,
   setLyric,
   delLyric,
   setMidiData,
   delMidiData,
-  setGenreList,
-  delGenreList,
 } = musicSlice.actions;
 
 export default musicSlice.reducer;
