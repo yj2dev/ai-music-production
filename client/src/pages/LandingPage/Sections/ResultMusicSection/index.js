@@ -29,10 +29,10 @@ function ResultMusicSection() {
       )}
 
       {/*  장르 그래프 */}
+      {showChart && <GenreChart />}
       <ShowChartButton onClick={() => setShowChart((prev) => !prev)}>
         {showChart ? "간략히" : "자세히보기"}
       </ShowChartButton>
-      {showChart && <GenreChart />}
 
       {/*작곡 결과입니다.*/}
       {midiData && (
@@ -45,6 +45,7 @@ function ResultMusicSection() {
       {/*작사 결과입니다.*/}
       {lyric && <ResultLyric>{lyric}</ResultLyric>}
       <Button
+        style={{ marginBottom: "32px" }}
         onClick={() => {
           window.location.reload("/");
         }}

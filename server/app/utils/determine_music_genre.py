@@ -57,7 +57,7 @@ def determine_genre(filename = None):
             audio_info[1 + i] = mfccs[idx].var()
 
         audio_info[59] = None
-        return audio_info\
+        return audio_info
 
     ### 입력받은 목소리 속성 추출 후 원본 데이터프레임에 추가
     df = pd.read_csv(MUSIC_PROP, index_col='filename', encoding='cp949')

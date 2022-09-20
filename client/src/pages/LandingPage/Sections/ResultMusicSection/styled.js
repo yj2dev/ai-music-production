@@ -45,6 +45,7 @@ export const MidiBox = styled.div`
 export const ShowChartButton = styled.div`
   color: #666666;
   font-weight: 800;
+  user-select: none;
   cursor: pointer;
   padding-bottom: 16px;
 `;
