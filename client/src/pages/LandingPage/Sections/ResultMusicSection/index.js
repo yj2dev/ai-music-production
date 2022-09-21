@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import { genreOfKR } from "../../../../utils/Translate";
 import MidiPlayer from "../../../../components/MidiPlayer";
 import GenreChart from "../../../../components/GenreChart";
+import Abcjs from "react-abcjs";
 
 function ResultMusicSection() {
   const genre = useSelector((state) => state.music.genre);
@@ -22,6 +23,15 @@ function ResultMusicSection() {
 
   return (
     <Container>
+      <Abcjs
+        abcNotation={
+          "X:1\nT:Example\nM:4/4\nC:Trad.\nK:G\n|:Gccc dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|"
+        }
+        parserParams={{}}
+        engraverParams={{ responsive: "resize" }}
+        renderParams={{ viewportHorizontal: true }}
+      />
+
       {genre && (
         <ResultGenre>
           당신의 음성은 <span>{genreOfKR(genre)}</span>에 잘 어울립니다.

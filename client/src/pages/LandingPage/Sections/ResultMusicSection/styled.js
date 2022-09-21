@@ -4,7 +4,7 @@ export const Container = styled.div`
   position: relative;
   height: 100vh;
   transition: 0.2s;
-  background: linear-gradient(90deg, #ffffff, #fbf8f6);
+  //background: linear-gradient(90deg, #ffffff, #fbf8f6);
   margin-top: 64px;
   display: flex;
   flex-direction: column;
@@ -23,19 +23,22 @@ export const ResultGenre = styled.div`
   }
 `;
 export const ResultLyric = styled.div`
-  border: 4px solid #ec4820;
-  box-shadow: 4px 4px 5px 1px rgba(0, 0, 0, 0.3);
+  //border: 4px solid #ec4820;
+  //box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.3);
+  //background: #ffffff;
+  border-radius: 20px;
+  background: linear-gradient(165deg, #ebeae6, #ffffff);
+  width: calc(100% - 128px);
   white-space: pre-wrap;
-  font-size: 18px;
   height: 500px;
   overflow: scroll;
   color: #000;
   text-align: center;
-  padding: 16px;
+  padding: 32px;
   margin: 30px;
-  border-radius: 20px;
   user-select: text;
-  line-height: 32px;
+  font-size: 22px;
+  line-height: 44px;
 `;
 export const MidiBox = styled.div`
   display: flex;

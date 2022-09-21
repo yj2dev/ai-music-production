@@ -129,6 +129,11 @@ def composition_ballad():
     midi_stream.append(fir)
     midi_stream.append(thr)
 
+
+
+
+
+
     try:
         midi_stream = stream.Stream(output_notes)
         file_name = f'output_ballad_{str(int(time.time()))}.mid'
@@ -137,3 +142,5 @@ def composition_ballad():
         return file_path
     except:
         return False
+
+
