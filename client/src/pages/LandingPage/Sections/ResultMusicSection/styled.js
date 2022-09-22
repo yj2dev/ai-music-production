@@ -12,6 +12,7 @@ export const Container = styled.div`
   align-items: center;
 `;
 export const ResultGenre = styled.div`
+  user-select: none;
   text-align: center;
   font-size: 24px;
   color: #000;
@@ -63,6 +64,7 @@ export const MidiWrapper = styled.div`
   box-shadow: 4px 4px 5px 1px rgba(0, 0, 0, 0.3);
 `;
 export const Button = styled.button`
+  user-select: none;
   box-shadow: 4px 4px 5px 1px rgba(0, 0, 0, 0.3);
   background-color: #00a0cb;
   color: #fff0d6;

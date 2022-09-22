@@ -6,4 +6,4 @@ def genreOfKR(genre):
     elif genre == "hiphop":
         return "힙합"
     elif genre == "trot":
-        return "댄스"
+        return "트로트"

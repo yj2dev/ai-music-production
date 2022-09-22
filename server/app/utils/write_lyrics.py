@@ -6,8 +6,6 @@ import re
 def write_lyrics(genre, keyword=None):
     path = "app/model/write_lyrics_model"
 
-    print("write_lyrics >> ", genreOfKR(genre))
-
     # 모델 불러오기
     model = GPT2LMHeadModel.from_pretrained(path)
     tokenizer = BertTokenizerFast.from_pretrained(path)
@@ -48,5 +46,6 @@ def write_lyrics(genre, keyword=None):
             gen = gen[(idx + 2)::]
             return gen
 
-    prompt = f"<{genre}> {keyword}"
+    prompt = f"<{genreOfKR(genre)}> {keyword}"
+    print('prompt >> ', prompt)
     return model_test(prompt)

@@ -8,6 +8,7 @@ export const Container = styled.div`
   align-items: center;
   transition: 0.2s;
   background: linear-gradient(90deg, #ffffff, #fbf8f6);
+  user-select: none;
 `;
 
 export const Section = styled.div`
@@ -29,6 +30,7 @@ export const ContentWrapper = styled.div`
 `;
 export const Content = styled.div`
   //border: 1px solid darkviolet;
+  user-select: none;
   display: flex;
   z-index: 100;
   justify-content: center;
@@ -47,6 +49,8 @@ export const LogoImage = styled.img`
   //border: 1px solid blue;
   height: 28%;
   width: 28%;
+  user-select: none;
+
   //padding: 32px 128px 32px 32px;
   padding-right: 5%;
 
@@ -67,6 +71,7 @@ export const LogoImage = styled.img`
 `;
 
 export const NextPageButton = styled.button`
+  user-select: none;
   z-index: 100;
   box-shadow: 4px 4px 5px 1px rgba(0, 0, 0, 0.3);
   border-radius: 20px;
