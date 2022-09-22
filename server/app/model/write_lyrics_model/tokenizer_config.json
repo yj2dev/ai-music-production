@@ -1,6 +1,9 @@
 {
   "additional_special_tokens": [
-    "<트로트>"
+    "<발라드>",
+    "<트로트>",
+    "<댄스>",
+    "<힙합>"
   ],
   "bos_token": "<|startoftext|>",
   "cls_token": "[CLS]",

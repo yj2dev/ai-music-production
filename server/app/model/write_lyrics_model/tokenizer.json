@@ -82,7 +82,7 @@
     },
     {
       "id": 42003,
-      "content": "<트로트>",
+      "content": "<발라드>",
       "single_word": false,
       "lstrip": false,
       "rstrip": false,
@@ -91,6 +91,33 @@
     },
     {
       "id": 42004,
+      "content": "<트로트>",
+      "single_word": false,
+      "lstrip": false,
+      "rstrip": false,
+      "normalized": false,
+      "special": true
+    },
+    {
+      "id": 42005,
+      "content": "<댄스>",
+      "single_word": false,
+      "lstrip": false,
+      "rstrip": false,
+      "normalized": false,
+      "special": true
+    },
+    {
+      "id": 42006,
+      "content": "<힙합>",
+      "single_word": false,
+      "lstrip": false,
+      "rstrip": false,
+      "normalized": false,
+      "special": true
+    },
+    {
+      "id": 42007,
       "content": "<br>",
       "single_word": false,
       "lstrip": false,

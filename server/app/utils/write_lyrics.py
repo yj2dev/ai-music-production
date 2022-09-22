@@ -1,9 +1,12 @@
 from transformers import BertTokenizerFast, GPT2LMHeadModel
+from app.utils.genreOfKR import genreOfKR
 import torch
 import re
 
 def write_lyrics(genre, keyword=None):
     path = "app/model/write_lyrics_model"
+
+    print("write_lyrics >> ", genreOfKR(genre))
 
     # 모델 불러오기
     model = GPT2LMHeadModel.from_pretrained(path)
@@ -16,6 +19,8 @@ def write_lyrics(genre, keyword=None):
     def model_test(msg):
         # eval 모드로 설정
         model.eval()
+        min = 200
+        max = 400
         prompt = msg
         input_ids = torch.tensor(tokenizer.encode(f"<|startoftext|> {prompt} ")[1:]).unsqueeze(0).to(device='cpu', non_blocking=True)
         #input_ids = tokenizer.encode(prompt, return_tensors='pt').to(device='cpu', non_blocking=True)
@@ -23,13 +28,13 @@ def write_lyrics(genre, keyword=None):
                                       input_ids,
                                       do_sample=True,
                                       top_k=50,
-                                      min_length = 400,
-                                      max_length = 892,
+                                      min_length = min,
+                                      max_length = max,
                                       top_p=0.92,
                                       num_return_sequences=1,
                                       no_repeat_ngram_size=3,
                                       temperature=0.9,
-                                      repetition_penalty=1.5,
+                                      repetition_penalty=1.1,
                                       pad_token_id=tokenizer.pad_token_id,
                                       eos_token_id=tokenizer.eos_token_id,
                                       bos_token_id=tokenizer.bos_token_id,
