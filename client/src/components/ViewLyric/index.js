@@ -8,57 +8,13 @@ function ViewLyric({ lyric, sec = 1500, isPlay, isPause }) {
   const lyricRef = useRef([]);
   const lyricIdx = useRef(0);
 
-  console.log("isPlay >> ", isPlay);
-  console.log("isPause >> ", isPause);
-
-  // const { reset, stop } = useInterval(() => {
-  //   if (!isPlay) {
-  //     console.log("일시정지");
-  //     stop();
-  //     // return;
-  //   } else {
-  //     console.log("재개");
-  //   }
-  //
-  //   lyricRef.current[lyricIdx.current]?.scrollIntoView({
-  //     behavior: "smooth",
-  //   });
-  //   if (splitLyric.length <= lyricIdx.current) lyricIdx.current = 0;
-  //   lyricIdx.current++;
-  // }, sec);
-
-  // if (!isPlay) {
-  //    console.log("일시정지");
-  //    stop();
-  //    // return;
-  //  } else {
-  //    console.log("재개");
-  //  }
-
-  // useInterval(() => {
-  //   console.log("lyricIdx >> ", lyricIdx.current);
-  //   console.log("isPlay >> ", isPlay);
-  //   console.log("isPause >> ", isPause);
-  //   if (isPlay) {
-  //     console.log("재생 시작");
-  //   } else {
-  //     console.log("재생 중단");
-  //     lyricIdx.current = 0;
-  //     return;
-  //   }
-  //
-  //   if (isPause) {
-  //     console.log("일시정지 동작");
-  //     return;
-  //   } else {
-  //     console.log("일시정지 재개");
-  //   }
-  //   lyricRef.current[lyricIdx.current]?.scrollIntoView({
-  //     behavior: "smooth",
-  //   });
-  //   if (splitLyric.length <= lyricIdx.current) lyricIdx.current = 0;
-  //   lyricIdx.current++;
-  // }, sec);
+  const { reset, stop } = useInterval(() => {
+    lyricRef.current[lyricIdx.current]?.scrollIntoView({
+      behavior: "smooth",
+    });
+    if (splitLyric.length <= lyricIdx.current) lyricIdx.current = 0;
+    lyricIdx.current++;
+  }, sec);
 
   return (
     <Container>

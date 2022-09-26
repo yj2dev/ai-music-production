@@ -14,7 +14,9 @@ export const Container = styled.div`
   font-size: 32px;
   overflow-y: hidden;
   height: 128px;
-  line-height: 128px;
+  line-height: 64px;
   //border: 2px solid gold;
 `;
-export const Sentence = styled.div``;
+export const Sentence = styled.div`
+  font-size: 36px;
+`;

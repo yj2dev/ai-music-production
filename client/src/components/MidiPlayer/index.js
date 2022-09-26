@@ -9,7 +9,7 @@ function MidiPlayer({ onPlay, midiData, lyric }) {
 
   function onClickPlay() {
     setIsPlay((prev) => !prev);
-    console.log("isPlay >> ", isPlay);
+    console.log("isPlay >> ");
   }
 
   if (!onPlay) return;
@@ -17,28 +17,7 @@ function MidiPlayer({ onPlay, midiData, lyric }) {
     <>
       <MidiBox>
         <MidiWrapper>
-          <ReactMidiPlayer
-            // autoplay 절대 사용금지(리랜더링 버그 존재)
-            // autoplay={false}
-            // onPlay={onClickPlay}
-            // onPlay={() => {
-            //   // setIsPlay(true);
-            //   console.log("Play...");
-            // }}
-            // onStop={() => {
-            //   // setIsPlay(false);
-            //   console.log("Stop...");
-            // }}
-            // onPause={() => {
-            //   setIsPause(true);
-            //   console.log("Pause...");
-            // }}
-            // onResume={() => {
-            //   setIsPause(false);
-            //   console.log("Resume...");
-            // }}
-            data={atob(midiData)}
-          />
+          <ReactMidiPlayer data={atob(midiData)} />
         </MidiWrapper>
       </MidiBox>
       <ViewLyric lyric={lyric} isPlay={isPlay} isPause={isPause} />
