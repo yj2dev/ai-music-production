@@ -23,24 +23,6 @@ export const ResultGenre = styled.div`
     background-color: #ffffff;
   }
 `;
-export const Test = styled.div`
-  //border: 4px solid #ec4820;
-  //box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.3);
-  //background: #ffffff;
-  /* border-radius: 20px;
-  background: linear-gradient(165deg, #ebeae6, #ffffff);
-  width: calc(100% - 128px);
-  white-space: pre-wrap;
-  height: 500px;
-  overflow: scroll;
-  color: #000;
-  text-align: center;
-  padding: 32px;
-  margin: 30px;
-  user-select: text;
-  font-size: 22px;
-  line-height: 44px; */
-`;
 
 export const ResultLyric = styled.div`
   //border: 4px solid #ec4820;
@@ -50,16 +32,36 @@ export const ResultLyric = styled.div`
   background: linear-gradient(165deg, #ebeae6, #ffffff);
   width: calc(100% - 128px);
   white-space: pre-wrap;
-  height: 500px;
+  height: 400px;
   overflow: scroll;
   color: #000;
   text-align: center;
   padding: 32px;
-  margin: 30px;
+  margin: 20px;
   user-select: text;
   font-size: 22px;
   line-height: 44px;
 `;
+
+export const MiddleResultLyric = styled.div`
+  width: calc(100% - 60%);
+  height: 70px;
+  margin-top: 20px;
+  border-radius: 20px;
+  background: linear-gradient(165deg, #ebeae6, #f7f5f0);
+  white-space: pre-wrap;
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+`;
+
+export const MiddleResultLyric_TextBox = styled.div`
+  font-weight: ${(props) => props.primary && `600`};
+`;
+
 export const MidiBox = styled.div`
   display: flex;
   justify-content: center;
@@ -82,10 +84,21 @@ export const MidiWrapper = styled.div`
   border-radius: 50px;
   box-shadow: 4px 4px 5px 1px rgba(0, 0, 0, 0.3);
 `;
+
+export const ButtonCollect = styled.div`
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 100px;
+  justify-content: center;
+  align-items: center;
+  bottom: 35px;
+`;
+
 export const Button = styled.button`
   user-select: none;
   box-shadow: 4px 4px 5px 1px rgba(0, 0, 0, 0.3);
-  background-color: #00a0cb;
+  background-color: ${(props) => props.color || "#00a0cb"};
   color: #fff0d6;
   width: 400px;
   height: 54px;
@@ -98,6 +111,8 @@ export const Button = styled.button`
   cursor: pointer;
   position: relative;
   overflow: hidden;
+
+  margin: 0 120px;
 
   &:hover {
     color: #ffffff;

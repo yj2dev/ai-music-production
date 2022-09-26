@@ -5,9 +5,11 @@ import {
   MidiWrapper,
   ResultGenre,
   ResultLyric,
+  MiddleResultLyric,
+  MiddleResultLyric_TextBox,
   Button,
   ShowChartButton,
-  Test,
+  ButtonCollect,
 } from "./styled";
 import { useSelector } from "react-redux";
 import { genreOfKR } from "../../../../utils/Translate";
@@ -24,85 +26,27 @@ function ResultMusicSection() {
   const midiData = useSelector((state) => state.music.midiData);
   const [showChart, setShowChart] = useState(false);
 
+  const intervalRef = useRef(null);
   const [numValue, setNumValue] = useState(0);
-  const [counter, setCounter] = useState(5);
+
   const [lyricIndex, setLyricIndex] = useState([]);
+  const [everyLyric, setEveryLyric] = useState(false);
 
-  // console.log(counter);
+  const [isPlay, setIsPlay] = useState(false);
 
-  const TimerFunction = () => {
-    const timer =
-      counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
-    return () => clearInterval(timer);
+  const start = () => {
+    intervalRef.current = setInterval(() => {
+      setNumValue((c) => c + 1);
+    }, 1500);
   };
 
-  useEffect(() => {
-    console.log(counter);
-
-    for (let i = 0; i < 4; i++) {
-      if (counter > 0) {
-        TimerFunction();
-      } else {
-        setCounter(5);
-        setNumValue(numValue + 1);
-        console.log(i);
-      }
-    }
-  }, [numValue]);
+  const stop = () => {
+    clearInterval(intervalRef.current);
+  };
 
   useEffect(() => {
     setLyricIndex(lyric.split("\n"));
   }, [lyric]);
-
-  // useEffect(() => {
-  //   setLyricIndex(lyric.split("\n"));
-  // }, [lyric]);
-
-  // const testChange = () => {
-  //   for (let i = 0; i < 4; ) {
-  //     if (counter > 0) {
-  //       counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
-
-  //       console.log(counter);
-  //       console.log(i);
-  //     } else {
-  //       // setNumValue(numValue + 1);
-  //       // setCounter(5);
-  //       i++;
-  //     }
-  //   }
-
-  //   // return (
-  //   //   <div>
-  //   //     <h4>{lyricIndex[numValue]}</h4>
-  //   //     <h4>{lyricIndex[numValue + 1]}</h4>
-  //   //   </div>
-  //   // );
-  // };
-
-  // function TestIndex() {
-  //   var testarray = [];
-
-  //   for (let i = 0; i < 3; ) {
-  //     // testarray.push(<div>{i}</div>);
-
-  //     if (counter != 0) {
-  //       timeer();
-  //     } else {
-  //       testarray = (
-  //         <div>
-  //           <h4>{lyricIndex[i]}</h4>
-  //           <h4>{lyricIndex[i + 1]}</h4>
-  //         </div>
-  //       );
-
-  //       setCounter(5);
-  //       i++;
-  //     }
-  //   }
-
-  //   return testarray;
-  // }
 
   return (
     <Container>
@@ -138,19 +82,40 @@ function ResultMusicSection() {
         </MidiBox>
       )}
 
-      {/* {TestIndex()} */}
-      {/* {lyric != "" ? testChange() : null} */}
+      <button onClick={start}>start</button>
+      <button onClick={stop}>stop</button>
+
+      <MiddleResultLyric>
+        <MiddleResultLyric_TextBox primary>
+          {lyricIndex[numValue]}
+        </MiddleResultLyric_TextBox>
+        <MiddleResultLyric_TextBox>
+          {lyricIndex[numValue + 1]}
+        </MiddleResultLyric_TextBox>
+      </MiddleResultLyric>
 
       {/*작사 결과입니다.*/}
-      {lyric && <ResultLyric>{lyric}</ResultLyric>}
-      <Button
-        style={{ marginBottom: "32px" }}
-        onClick={() => {
-          window.location.reload("/");
-        }}
-      >
-        다시하기
-      </Button>
+
+      {lyric && everyLyric ? <ResultLyric>{lyric}</ResultLyric> : null}
+
+      <ButtonCollect>
+        <Button
+          color="#99F"
+          onClick={() => {
+            setEveryLyric(!everyLyric);
+          }}
+        >
+          {everyLyric ? "가사 숨기기" : "전체가사 보기"}
+        </Button>
+
+        <Button
+          onClick={() => {
+            window.location.reload("/");
+          }}
+        >
+          다시하기
+        </Button>
+      </ButtonCollect>
     </Container>
   );
 }
