@@ -39,6 +39,7 @@ function UserSetGenre({ nextPage }) {
     axios
       .get(`/api/music/create/${selectedGenre}?keyword=${keyword}`)
       .then((res) => {
+          console.log('res >> ', res)
         dispatch(setGenre(res.data.genre));
         dispatch(setLyric(res.data.lyric));
         dispatch(setMidiData(res.data.base64_file));
