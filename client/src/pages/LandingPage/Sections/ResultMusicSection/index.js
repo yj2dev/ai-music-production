@@ -1,18 +1,16 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   Container,
-  MidiBox,
-  MidiWrapper,
   ResultGenre,
   ResultLyric,
   Button,
-  ShowChartButton,
+  ShowButton,
 } from "./styled";
 import { useSelector } from "react-redux";
 import { genreOfKR } from "../../../../utils/Translate";
 import MidiPlayer from "../../../../components/MidiPlayer";
 import GenreChart from "../../../../components/GenreChart";
-import Abcjs from "react-abcjs";
+import ViewLyric from "../../../../components/ViewLyric";
 
 function ResultMusicSection() {
   const genre = useSelector((state) => state.music.genre);
@@ -22,18 +20,10 @@ function ResultMusicSection() {
   const lyric = useSelector((state) => state.music.lyric);
   const midiData = useSelector((state) => state.music.midiData);
   const [showChart, setShowChart] = useState(false);
+  const [showLyric, setShowLyric] = useState(false);
 
   return (
     <Container>
-      {/*<Abcjs*/}
-      {/*  abcNotation={*/}
-      {/*    "X:1\nT:Example\nM:4/4\nC:Trad.\nK:G\n|:Gccc dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|"*/}
-      {/*  }*/}
-      {/*  parserParams={{}}*/}
-      {/*  engraverParams={{ responsive: "resize" }}*/}
-      {/*  renderParams={{ viewportHorizontal: true }}*/}
-      {/*/>*/}
-
       {genre && (
         <ResultGenre>
           당신의 음성은 <span>{genreOfKR(genre)}</span>에 잘 어울립니다.
@@ -43,21 +33,24 @@ function ResultMusicSection() {
       {/*  장르 그래프 */}
       {genreScoreLen !== 0 && showChart && <GenreChart />}
       {genreScoreLen !== 0 && (
-        <ShowChartButton onClick={() => setShowChart((prev) => !prev)}>
+        <ShowButton onClick={() => setShowChart((prev) => !prev)}>
           {showChart ? "간략히" : "자세히보기"}
-        </ShowChartButton>
+        </ShowButton>
       )}
 
-      {/*작곡 결과입니다.*/}
+      {/*작곡 결과.*/}
       {midiData && (
-        <MidiBox>
-          <MidiWrapper>
-            <MidiPlayer onPlay={true} midiData={midiData} />
-          </MidiWrapper>
-        </MidiBox>
+        <MidiPlayer onPlay={true} midiData={midiData} lyric={lyric} />
       )}
-      {/*작사 결과입니다.*/}
-      {lyric && <ResultLyric>{lyric}</ResultLyric>}
+
+      {genre && (
+        <ShowButton onClick={() => setShowLyric((prev) => !prev)}>
+          {showLyric ? "숨기기" : "전체가사보기"}
+        </ShowButton>
+      )}
+
+      {/*작사 결과.*/}
+      {showLyric && lyric && <ResultLyric>{lyric}</ResultLyric>}
       <Button
         style={{ marginBottom: "32px" }}
         onClick={() => {

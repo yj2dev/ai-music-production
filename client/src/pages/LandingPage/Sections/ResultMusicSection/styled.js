@@ -41,29 +41,17 @@ export const ResultLyric = styled.div`
   font-size: 22px;
   line-height: 44px;
 `;
-export const MidiBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-export const ShowChartButton = styled.div`
+
+export const ShowButton = styled.div`
   color: #666666;
   font-weight: 800;
   user-select: none;
   cursor: pointer;
   padding-bottom: 16px;
 `;
-export const MidiWrapper = styled.div`
-  width: 400px;
-  height: 54px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #888888;
-  border-radius: 50px;
-  box-shadow: 4px 4px 5px 1px rgba(0, 0, 0, 0.3);
-`;
+
 export const Button = styled.button`
+  margin-top: 32px;
   user-select: none;
   box-shadow: 4px 4px 5px 1px rgba(0, 0, 0, 0.3);
   background-color: #00a0cb;
