@@ -10,7 +10,6 @@ import { useSelector } from "react-redux";
 import { genreOfKR } from "../../../../utils/Translate";
 import MidiPlayer from "../../../../components/MidiPlayer";
 import GenreChart from "../../../../components/GenreChart";
-import ViewLyric from "../../../../components/ViewLyric";
 
 function ResultMusicSection() {
   const genre = useSelector((state) => state.music.genre);
@@ -45,7 +44,7 @@ function ResultMusicSection() {
 
       {genre && (
         <ShowButton onClick={() => setShowLyric((prev) => !prev)}>
-          {showLyric ? "숨기기" : "전체가사보기"}
+          {showLyric ? "가사숨기기" : "전체가사보기"}
         </ShowButton>
       )}
 

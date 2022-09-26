@@ -7,11 +7,6 @@ function MidiPlayer({ onPlay, midiData, lyric }) {
   const [isPlay, setIsPlay] = useState(false);
   const [isPause, setIsPause] = useState(false);
 
-  function onClickPlay() {
-    setIsPlay((prev) => !prev);
-    console.log("isPlay >> ");
-  }
-
   if (!onPlay) return;
   return (
     <>
@@ -20,8 +15,8 @@ function MidiPlayer({ onPlay, midiData, lyric }) {
           <ReactMidiPlayer data={atob(midiData)} />
         </MidiWrapper>
       </MidiBox>
-      <ViewLyric lyric={lyric} isPlay={isPlay} isPause={isPause} />
-      {/*<ViewLyric lyric={lyric} />*/}
+      {/*<ViewLyric lyric={lyric} isPlay={isPlay} isPause={isPause} />*/}
+      <ViewLyric lyric={lyric} />
     </>
   );
 }
