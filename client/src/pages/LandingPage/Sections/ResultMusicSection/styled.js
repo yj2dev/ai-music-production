@@ -23,6 +23,25 @@ export const ResultGenre = styled.div`
     background-color: #ffffff;
   }
 `;
+export const Test = styled.div`
+  //border: 4px solid #ec4820;
+  //box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.3);
+  //background: #ffffff;
+  /* border-radius: 20px;
+  background: linear-gradient(165deg, #ebeae6, #ffffff);
+  width: calc(100% - 128px);
+  white-space: pre-wrap;
+  height: 500px;
+  overflow: scroll;
+  color: #000;
+  text-align: center;
+  padding: 32px;
+  margin: 30px;
+  user-select: text;
+  font-size: 22px;
+  line-height: 44px; */
+`;
+
 export const ResultLyric = styled.div`
   //border: 4px solid #ec4820;
   //box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.3);

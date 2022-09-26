@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   Container,
   MidiBox,
@@ -7,6 +7,7 @@ import {
   ResultLyric,
   Button,
   ShowChartButton,
+  Test,
 } from "./styled";
 import { useSelector } from "react-redux";
 import { genreOfKR } from "../../../../utils/Translate";
@@ -22,6 +23,86 @@ function ResultMusicSection() {
   const lyric = useSelector((state) => state.music.lyric);
   const midiData = useSelector((state) => state.music.midiData);
   const [showChart, setShowChart] = useState(false);
+
+  const [numValue, setNumValue] = useState(0);
+  const [counter, setCounter] = useState(5);
+  const [lyricIndex, setLyricIndex] = useState([]);
+
+  // console.log(counter);
+
+  const TimerFunction = () => {
+    const timer =
+      counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
+    return () => clearInterval(timer);
+  };
+
+  useEffect(() => {
+    console.log(counter);
+
+    for (let i = 0; i < 4; i++) {
+      if (counter > 0) {
+        TimerFunction();
+      } else {
+        setCounter(5);
+        setNumValue(numValue + 1);
+        console.log(i);
+      }
+    }
+  }, [numValue]);
+
+  useEffect(() => {
+    setLyricIndex(lyric.split("\n"));
+  }, [lyric]);
+
+  // useEffect(() => {
+  //   setLyricIndex(lyric.split("\n"));
+  // }, [lyric]);
+
+  // const testChange = () => {
+  //   for (let i = 0; i < 4; ) {
+  //     if (counter > 0) {
+  //       counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
+
+  //       console.log(counter);
+  //       console.log(i);
+  //     } else {
+  //       // setNumValue(numValue + 1);
+  //       // setCounter(5);
+  //       i++;
+  //     }
+  //   }
+
+  //   // return (
+  //   //   <div>
+  //   //     <h4>{lyricIndex[numValue]}</h4>
+  //   //     <h4>{lyricIndex[numValue + 1]}</h4>
+  //   //   </div>
+  //   // );
+  // };
+
+  // function TestIndex() {
+  //   var testarray = [];
+
+  //   for (let i = 0; i < 3; ) {
+  //     // testarray.push(<div>{i}</div>);
+
+  //     if (counter != 0) {
+  //       timeer();
+  //     } else {
+  //       testarray = (
+  //         <div>
+  //           <h4>{lyricIndex[i]}</h4>
+  //           <h4>{lyricIndex[i + 1]}</h4>
+  //         </div>
+  //       );
+
+  //       setCounter(5);
+  //       i++;
+  //     }
+  //   }
+
+  //   return testarray;
+  // }
 
   return (
     <Container>
@@ -56,6 +137,10 @@ function ResultMusicSection() {
           </MidiWrapper>
         </MidiBox>
       )}
+
+      {/* {TestIndex()} */}
+      {/* {lyric != "" ? testChange() : null} */}
+
       {/*작사 결과입니다.*/}
       {lyric && <ResultLyric>{lyric}</ResultLyric>}
       <Button
