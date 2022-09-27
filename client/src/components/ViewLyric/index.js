@@ -8,20 +8,23 @@ function ViewLyric({ lyric, sec = 1500 }) {
   const lyricRef = useRef([]);
   const lyricIdx = useRef(0);
 
+   
+  
   const { reset, stop } = useInterval(() => {
-    console.log(splitLyric.length, lyricIdx.current);
-    console.log(splitLyric.length < lyricIdx.current);
+ 
+    lyricRef.current[lyricIdx.current]?.scrollIntoView({
+      behavior: "smooth",
+    });
     if (splitLyric.length <= lyricIdx.current) {
-      console.log("초기화");
       lyricIdx.current = 0;
     } else {
-      lyricRef.current[lyricIdx.current]?.scrollIntoView({
-        behavior: "smooth",
-      });
-      lyricRef.current[lyricIdx.current - 1].style =
-        "color: #000000; font-weight: 800;";
       lyricRef.current[lyricIdx.current].style =
         "color: #00a0cb; font-weight: 800;";
+
+      if(lyricIdx.current != 0) {
+        lyricRef.current[lyricIdx.current - 1].style =
+        "color: #000000; font-weight: 800;";
+      }
     }
 
     lyricIdx.current++;

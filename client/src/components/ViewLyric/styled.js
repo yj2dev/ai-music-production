@@ -13,6 +13,7 @@ export const ViewLyricWrapper = styled.div`
   user-select: text;
   font-size: 32px;
   overflow-y: hidden;
+  overflow-x: hidden;
   height: 128px;
   line-height: 64px;
   //border: 2px solid gold;

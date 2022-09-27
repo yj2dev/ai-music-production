@@ -27,6 +27,8 @@ export const ResultLyric = styled.div`
   //border: 4px solid #ec4820;
   //box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.3);
   //background: #ffffff;
+
+  overflow-y: hidden;
   border-radius: 20px;
   background: linear-gradient(165deg, #ebeae6, #ffffff);
   width: calc(100% - 128px);
