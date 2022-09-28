@@ -11,8 +11,8 @@ def write_lyrics(genre, keyword=None):
     tokenizer = BertTokenizerFast.from_pretrained(path)
 
     # 모델 작동 환경 설정
-    device = torch.device("cuda")
-    model.cuda()
+    device = torch.device("cpu")
+    model.cpu()
 
     def model_test(msg):
         # eval 모드로 설정
@@ -20,8 +20,8 @@ def write_lyrics(genre, keyword=None):
         min = 200
         max = 400
         prompt = msg
-        input_ids = torch.tensor(tokenizer.encode(f"<|startoftext|> {prompt} ")[1:]).unsqueeze(0).to(device='cuda', non_blocking=True)
-        #input_ids = tokenizer.encode(prompt, return_tensors='pt').to(device='cuda', non_blocking=True)
+        input_ids = torch.tensor(tokenizer.encode(f"<|startoftext|> {prompt} ")[1:]).unsqueeze(0).to(device='cpu', non_blocking=True)
+        #input_ids = tokenizer.encode(prompt, return_tensors='pt').to(device='cpu', non_blocking=True)
         generate_ids = model.generate(
                                       input_ids,
                                       do_sample=True,
@@ -37,7 +37,7 @@ def write_lyrics(genre, keyword=None):
                                       eos_token_id=tokenizer.eos_token_id,
                                       bos_token_id=tokenizer.bos_token_id,
                                       use_cache=True
-                                    ).to(device='cuda', non_blocking=True)
+                                    ).to(device='cpu', non_blocking=True)
 
         for i, generated in enumerate(generate_ids):
             gen = "{}: {}".format(i, tokenizer.decode(generated, skip_special_tokens=True))

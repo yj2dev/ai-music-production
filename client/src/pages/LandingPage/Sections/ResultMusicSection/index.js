@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { genreOfKR } from "../../../../utils/Translate";
 import MidiPlayer from "../../../../components/MidiPlayer";
 import GenreChart from "../../../../components/GenreChart";
+import SheetMusic from "../../../../components/SheetMusic";
 
 function ResultMusicSection() {
   const genre = useSelector((state) => state.music.genre);
@@ -41,6 +42,8 @@ function ResultMusicSection() {
       {midiData && (
         <MidiPlayer onPlay={true} midiData={midiData} lyric={lyric} />
       )}
+
+      <SheetMusic midiData={midiData} />
 
       {genre && (
         <ShowButton onClick={() => setShowLyric((prev) => !prev)}>
