@@ -165,10 +165,10 @@ def composition_hiphop():
     midi_stream.append(thr)
 
     try:
-        midi_stream = stream.Stream(output_notes)
         file_name = f'output_hiphop_{str(int(time.time()))}.mid'
         file_path = f'app/data/output_audio/{file_name}'
         midi_stream.write('midi', fp=file_path)
         return file_path
+
     except:
         return False

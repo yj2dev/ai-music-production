@@ -192,7 +192,6 @@ def composition_trot():
     midi_stream.append(fr)
 
     try:
-        midi_stream = stream.Stream(output_notes)
         file_name = f'output_trot_{str(int(time.time()))}.mid'
         file_path = f'app/data/output_audio/{file_name}'
         midi_stream.write('midi', fp=file_path)

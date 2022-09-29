@@ -194,10 +194,10 @@ def composition_dance():
     midi_stream.append(fr)
 
     try:
-        midi_stream = stream.Stream(output_notes)
         file_name = f'output_dance_{str(int(time.time()))}.mid'
         file_path = f'app/data/output_audio/{file_name}'
         midi_stream.write('midi', fp=file_path)
+        midi_stream.write('musicxml', fp=file_path)
         return file_path
     except:
         return False
