@@ -6,9 +6,16 @@ import pandas as pd
 from music21 import *
 from keras.models import load_model
 
+us = environment.Environment()
+us["musicxmlPath"]=r"C:\Program Files\MuseScore 3\bin\MuseScore3.exe"
+us["musescoreDirectPNGPath"]=r"C:\Program Files\MuseScore 3\bin\MuseScore3.exe"
+us.xmlReaderType()
 def composition_dance():
     model = load_model('app/model/composition_model/danceLSTM_Generator.h5')
 
+    print('check >> ', us["musicxmlPath"])
+    print('check >> ', us["musescoreDirectPNGPath"])
+    print('check >> ', us.xmlReaderType())
     # model.summary()
 
     # LSTM 모델 입력 생성
@@ -194,10 +201,14 @@ def composition_dance():
     midi_stream.append(fr)
 
     try:
-        file_name = f'output_dance_{str(int(time.time()))}.mid'
-        file_path = f'app/data/output_audio/{file_name}'
-        midi_stream.write('midi', fp=file_path)
-        midi_stream.write('musicxml', fp=file_path)
+        xml_file_name = f'output_dance_{str(int(time.time()))}.xml'
+        xml_file_path = f'app/data/output_audio/{xml_file_name}'
+        midi_stream.write('xml', fp=xml_file_path)
+
+        midi_file_name = f'output_dance_{str(int(time.time()))}.midi'
+        midi_file_path = f'app/data/output_audio/{midi_file_name}'
+        midi_stream.write('midi', fp=midi_file_path)
+
         return file_path
     except:
         return False

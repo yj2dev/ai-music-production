@@ -2,23 +2,19 @@ import React, { useEffect, useRef, useState } from "react";
 import { Container } from "./styled";
 import AudioPlayer from "osmd-audio-player";
 import { OpenSheetMusicDisplay } from "opensheetmusicdisplay";
-// import opensheetmusicdisplay from "opensheetmusicdisplay";
-const src = require("./danceLSTM_output1.musicxml");
-// const src = require("./full-music-sheet.musicxml");
-// const src = require("./full-music-sheet.xml");
-// console.log("src >> ", src);
+
+// const src = require("./example1.musicxml");
+// const src = require("./example2.musicxml");
+// const src = require("./output_dance_1664473137.musicxml");
+
 function SheetMusic() {
   const [file, setFile] = useState(null);
   window.audioPlayer = new AudioPlayer();
   const divRef = useRef();
 
-  // setFile(src);
-
   useEffect(async () => {
     const osmd = new OpenSheetMusicDisplay(divRef.current);
-    // osmd.load("./danceLSTM_output1.musicxml");
-    // await osmd.load("./full-music-sheet.musicxml");
-    await osmd.load(src);
+    // await osmd.load(src);
     await osmd.render();
     await window.audioPlayer.loadScore(osmd);
   }, []);

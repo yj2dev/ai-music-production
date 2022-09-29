@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   position: relative;
-  height: 100vh;
+  //height: 100vh;
   transition: 0.2s;
   //background: linear-gradient(90deg, #ffffff, #fbf8f6);
   margin-top: 64px;

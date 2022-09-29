@@ -11,7 +11,6 @@ import { genreOfKR } from "../../../../utils/Translate";
 import MidiPlayer from "../../../../components/MidiPlayer";
 import GenreChart from "../../../../components/GenreChart";
 import SheetMusic from "../../../../components/SheetMusic";
-import Score from "../../../../components/Score";
 
 function ResultMusicSection() {
   const genre = useSelector((state) => state.music.genre);
@@ -44,9 +43,7 @@ function ResultMusicSection() {
         <MidiPlayer onPlay={true} midiData={midiData} lyric={lyric} />
       )}
 
-      <SheetMusic file="danceLSTM_output1.musicxml" />
-      {/*<Score file="score.xml" />*/}
-      {/*<Score file="danceLSTM_output1.musicxml" />*/}
+      <SheetMusic file />
 
       {genre && (
         <ShowButton onClick={() => setShowLyric((prev) => !prev)}>
